@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>氛围测试 | VibeMatch</title>
+<meta name="description" content="VibeMatch 的氛围测试：十六个信号、两个旋钮，三个和你氛围押韵的样例人物。什么都不会离开你的浏览器。">
+<link rel="alternate" hreflang="en" href="https://vibematch.commandagi.app/app/">
+<link rel="alternate" hreflang="es" href="https://vibematch.commandagi.app/es/app/">
+<link rel="alternate" hreflang="zh-Hans" href="https://vibematch.commandagi.app/zh-Hans/app/">
+<link rel="alternate" hreflang="x-default" href="https://vibematch.commandagi.app/app/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../app/app.css">
+<link rel="icon" href="../../mark.svg" type="image/svg+xml">
+</head>
+<body class="app">
+<a class="skip" href="#view">跳到测试</a>
+<p class="demo-banner" role="note"><strong>演示。</strong>每个档案都是虚构的样例。你选择的内容不会离开这个浏览器。</p>
+<header class="app-head">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../../mark.svg" alt="" width="30" height="30">vibematch</a>
+    <span class="progress" id="progress" aria-live="polite">第 1 步，共 3 步</span>
+    <details class="locale">
+      <summary aria-label="语言">A/文 <span lang="zh-Hans">中文</span></summary>
+      <nav class="menu" aria-label="语言">
+        <a href="../../app/" lang="en">English</a>
+        <a href="../../es/app/" lang="es">Español</a>
+        <a href="./" lang="zh-Hans" aria-current="true">中文（简体）</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="view" class="app-main" tabindex="-1"></main>
+
+<dialog id="opener-dialog" aria-labelledby="opener-title">
+  <h2 id="opener-title"></h2>
+  <p id="opener-text"></p>
+  <p class="muted">在真实产品里，我们会把它发到对方的收件箱。在演示里，什么都不会离开这个页面。</p>
+  <div class="btns"><button type="button" class="btn primary" id="opener-close">关闭</button></div>
+</dialog>
+
+<script type="module" src="../../app/app.js"></script>
+</body>
+</html>

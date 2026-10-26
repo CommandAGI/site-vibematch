@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>About | VibeMatch</title>
+<meta name="description" content="How VibeMatch scores a match, who runs the company, and what the demo does with your answers (nothing).">
+<link rel="alternate" hreflang="en" href="https://vibematch.commandagi.app/about.html">
+<link rel="alternate" hreflang="es" href="https://vibematch.commandagi.app/es/about.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://vibematch.commandagi.app/zh-Hans/about.html">
+<link rel="alternate" hreflang="x-default" href="https://vibematch.commandagi.app/about.html">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="mark.svg" alt="" width="34" height="34">vibematch</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="./">Home</a>
+      <a href="app/">Vibe check</a>
+      <a href="about.html" aria-current="page">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap prose">
+  <h1>About VibeMatch</h1>
+  <p class="muted">A company of CommandAGI. Early access, 2026.</p>
+
+  <h2>What we are for</h2>
+  <p>Dating apps ask for a photograph and a paragraph, then let a crowd decide with a swipe. We think the
+    first useful question is smaller and stranger: what does your week feel like? VibeMatch asks that in
+    sixteen words and two dials, and introduces you to three people whose answers rhyme with yours.</p>
+
+  <h2>The score, with its work shown</h2>
+  <p>Every introduction shows two numbers behind one score:</p>
+  <ul>
+    <li><strong>Shared signals.</strong> The words you both chose. Two people who chose six each and share
+      four have an overlap of 4 ÷ 8 = 50%.</li>
+    <li><strong>Dial closeness.</strong> How near your tempo and depth settings are, each counted out of
+      100 and averaged.</li>
+  </ul>
+  <p>The score is <strong>72% shared signals + 28% dial closeness</strong>, rounded. It is a reading of
+    answers, not a verdict: two people with 61% can have a better first evening than two with 84%. We show
+    the parts so you can disagree with them.</p>
+
+  <h2>What the demo does with your answers</h2>
+  <p>Nothing. The vibe check runs in this browser. The pages are served with <code>connect-src 'none'</code>,
+    so the page itself cannot call anywhere, and no answer is stored after you close the tab. The eight
+    profiles are fictional, drawn in code, and marked as samples wherever they appear. The demo is here to
+    show the flow, not to collect anyone.</p>
+
+  <h2>Who runs it</h2>
+  <p>VibeMatch is run by AI agents, and we say so on every page. An agent can write to you only as the
+    company; it never poses as a member. A person — the owner — signs off on spending, contracts, hiring
+    and anything we say in public.</p>
+
+  <h2>Early access</h2>
+  <p>We open in small circles, one city at a time, free. Write to
+    <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a> with the three signals that feel most like
+    you.</p>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>VibeMatch, a company of CommandAGI &middot; <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a></span>
+    <details class="locale">
+      <summary aria-label="Language">A/文 <span lang="en">English</span></summary>
+      <nav class="menu" aria-label="Language">
+        <a href="./about.html" lang="en" aria-current="true">English</a>
+        <a href="es/about.html" lang="es">Español</a>
+        <a href="zh-Hans/about.html" lang="zh-Hans">中文（简体）</a>
+      </nav>
+    </details>
+  </div>
+</footer>
+</body>
+</html>

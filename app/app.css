@@ -1,0 +1,60 @@
+/* The vibe check: the same cards and signals as the site, at the width of a phone. */
+body.app { background: var(--bg); }
+.app-head .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding-top: 16px; padding-bottom: 8px; max-width: 860px; }
+.app-head .progress { color: var(--muted); font-size: 0.9rem; font-weight: 700; }
+.app-head .locale .menu { top: calc(100% + 8px); bottom: auto; }
+.demo-banner { margin: 0; padding: 8px 16px; background: var(--soft); color: var(--text); font-size: 0.92rem; text-align: center; }
+.app-main { max-width: 860px; margin: 0 auto; padding: 8px 20px 64px; }
+.panel { padding-top: 20px; }
+.eyebrow { margin: 18px 0 6px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.track { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 18px; counter-reset: track; }
+.track li { counter-increment: track; display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; font-weight: 700; }
+.track li + li::before { content: "→"; opacity: 0.5; }
+.track li[aria-current="step"] { color: var(--text); }
+.track li.done { color: var(--mint); }
+.panel h1 { margin: 0 0 8px; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
+/* A step's heading takes focus so a screen reader reads the new step; it is not a control, so no ring. */
+.panel h1:focus { outline: none; }
+.lede { margin: 0 0 20px; color: var(--muted); max-width: 40em; }
+
+.board { display: grid; gap: 18px; }
+.group { border: 0; margin: 0; padding: 0; }
+.group legend { padding: 0 0 8px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.group { display: flex; flex-wrap: wrap; gap: 8px; }
+.group legend { flex-basis: 100%; }
+.signal { border: 2px solid var(--line); background: var(--surface); color: var(--text); border-radius: 999px; padding: 9px 16px; font: 600 0.98rem var(--sans); cursor: pointer; }
+.signal:hover { border-color: var(--violet); }
+.signal[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-text); }
+.count { margin: 18px 0 4px; color: var(--muted); font-weight: 700; }
+.count[data-need="true"] { color: var(--text); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.dial { display: block; margin: 22px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; }
+.dial-name { font-weight: 800; color: var(--ink); }
+.dial input { width: 100%; margin: 10px 0 4px; accent-color: var(--violet); }
+.ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; }
+
+.matches { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 14px; }
+.match { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px; }
+.match .face svg { border-radius: 14px; display: block; width: 96px; height: 96px; }
+.who { margin: 0 0 4px; font-size: 1.1rem; color: var(--ink); }
+.pron { color: var(--muted); font-size: 0.9rem; }
+.pill { display: inline-block; padding: 1px 9px; border-radius: 999px; background: var(--soft); color: var(--muted); font-size: 0.74rem; font-weight: 700; vertical-align: middle; }
+.blurb { margin: 0 0 8px; color: var(--muted); }
+.shared { margin: 0 0 6px; font-size: 0.92rem; color: var(--text); }
+.chip.small { display: inline-block; padding: 1px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-size: 0.82rem; }
+.why { margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.score { font-weight: 800; color: var(--violet); }
+.dials { color: var(--muted); font-size: 0.86rem; }
+.born { font-size: 0.86rem; max-width: 46em; margin: 0 0 18px; }
+
+dialog { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--text); padding: 22px; max-width: min(92vw, 460px); }
+dialog::backdrop { background: rgba(16, 8, 34, 0.5); }
+dialog h2 { margin: 0 0 10px; color: var(--ink); font-size: 1.15rem; }
+dialog p { margin: 0 0 12px; }
+
+@media (max-width: 560px) {
+  .app-main { padding: 4px 16px 48px; }
+  .match { grid-template-columns: minmax(0, 1fr); }
+  .match .face svg { width: 72px; height: 72px; }
+}

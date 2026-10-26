@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Vibe check | VibeMatch</title>
+<meta name="description" content="The VibeMatch demo: sixteen signals, two dials and three sample people whose vibes rhyme with yours. Nothing leaves your browser.">
+<link rel="alternate" hreflang="en" href="https://vibematch.commandagi.app/app/">
+<link rel="alternate" hreflang="es" href="https://vibematch.commandagi.app/es/app/">
+<link rel="alternate" hreflang="zh-Hans" href="https://vibematch.commandagi.app/zh-Hans/app/">
+<link rel="alternate" hreflang="x-default" href="https://vibematch.commandagi.app/app/">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="app.css">
+<link rel="icon" href="../mark.svg" type="image/svg+xml">
+</head>
+<body class="app">
+<a class="skip" href="#view">Skip to the check</a>
+<p class="demo-banner" role="note"><strong>Demo.</strong> Every profile is a fictional sample. Nothing you choose leaves this browser.</p>
+<header class="app-head">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../mark.svg" alt="" width="30" height="30">vibematch</a>
+    <span class="progress" id="progress" aria-live="polite">Step 1 of 3</span>
+    <details class="locale">
+      <summary aria-label="Language">A/文 <span lang="en">English</span></summary>
+      <nav class="menu" aria-label="Language">
+        <a href="./" lang="en" aria-current="true">English</a>
+        <a href="../es/app/" lang="es">Español</a>
+        <a href="../zh-Hans/app/" lang="zh-Hans">中文（简体）</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="view" class="app-main" tabindex="-1"></main>
+
+<dialog id="opener-dialog" aria-labelledby="opener-title">
+  <h2 id="opener-title"></h2>
+  <p id="opener-text"></p>
+  <p class="muted">In the real product we send this to their inbox. In the demo nothing leaves this page.</p>
+  <div class="btns"><button type="button" class="btn primary" id="opener-close">Close</button></div>
+</dialog>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

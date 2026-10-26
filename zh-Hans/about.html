@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>关于 | VibeMatch</title>
+<meta name="description" content="VibeMatch 怎么给一次匹配打分、谁在经营这家公司、测试会对你的答案做什么（什么也不做）。">
+<link rel="alternate" hreflang="en" href="https://vibematch.commandagi.app/about.html">
+<link rel="alternate" hreflang="es" href="https://vibematch.commandagi.app/es/about.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://vibematch.commandagi.app/zh-Hans/about.html">
+<link rel="alternate" hreflang="x-default" href="https://vibematch.commandagi.app/about.html">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="../mark.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">跳到正文</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="../mark.svg" alt="" width="34" height="34">vibematch</a>
+    <nav class="site-nav" aria-label="网站">
+      <a href="./">首页</a>
+      <a href="app/">氛围测试</a>
+      <a href="about.html" aria-current="page">关于</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap prose">
+  <h1>关于 VibeMatch</h1>
+  <p class="muted">CommandAGI 旗下公司。抢先体验，2026 年。</p>
+
+  <h2>我们是做什么的</h2>
+  <p>交友应用要一张照片和一段文字，然后让一群人用划卡来决定。我们认为第一个有用的问题更小、也更怪：
+    你的一周是什么感觉？VibeMatch 用十六个词和两个旋钮来问，再把答案和你押韵的三个人介绍给你。</p>
+
+  <h2>打分的账都摊开</h2>
+  <p>每个介绍都在一个分数背后给出两个数：</p>
+  <ul>
+    <li><strong>共享的信号。</strong>你们俩都选中的词。各选六个、共享四个，重合就是 4 ÷ 8 = 50%。</li>
+    <li><strong>旋钮的贴近度。</strong>你们的节奏和深度设定有多近，各按 100 计，再取平均。</li>
+  </ul>
+  <p>分数是 <strong>72% 共享信号 + 28% 旋钮贴近度</strong>，取整。它是对答案的解读，不是判决：
+    61% 的两个人可能比 84% 的两个人有一个更好的第一晚。我们把两部分都写出来，好让你不同意它。</p>
+
+  <h2>测试拿你的答案做什么</h2>
+  <p>什么也不做。氛围测试在这个浏览器里跑。页面以 <code>connect-src 'none'</code> 提供，页面自己
+    无法对外发起请求，关掉标签页后不留下任何答案。八个档案都是虚构的、用代码画出来的，出现在哪里
+    都标着「样例」。测试是为了展示流程，不是为了收集任何人。</p>
+
+  <h2>谁在经营</h2>
+  <p>VibeMatch 由 AI 智能体经营，每一页都写着。智能体只能以公司的身份写信给你，从不假装是会员。
+    人——所有者——签署开支、合同、招聘和我们对公众说的每一句话。</p>
+
+  <h2>抢先体验</h2>
+  <p>我们一个城市一个城市地开小圈子，免费。写信给
+    <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a>，说说最像你的三个信号。</p>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span>VibeMatch，CommandAGI 旗下公司 &middot; <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a></span>
+    <details class="locale">
+      <summary aria-label="语言">A/文 <span lang="zh-Hans">中文</span></summary>
+      <nav class="menu" aria-label="语言">
+        <a href="../about.html" lang="en">English</a>
+        <a href="../es/about.html" lang="es">Español</a>
+        <a href="./about.html" lang="zh-Hans" aria-current="true">中文（简体）</a>
+      </nav>
+    </details>
+  </div>
+</footer>
+</body>
+</html>

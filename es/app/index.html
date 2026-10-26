@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Prueba de vibra | VibeMatch</title>
+<meta name="description" content="La prueba de VibeMatch: dieciséis señales, dos diales y tres personas de ejemplo cuya vibra rima con la tuya. Nada sale de tu navegador.">
+<link rel="alternate" hreflang="en" href="https://vibematch.commandagi.app/app/">
+<link rel="alternate" hreflang="es" href="https://vibematch.commandagi.app/es/app/">
+<link rel="alternate" hreflang="zh-Hans" href="https://vibematch.commandagi.app/zh-Hans/app/">
+<link rel="alternate" hreflang="x-default" href="https://vibematch.commandagi.app/app/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../app/app.css">
+<link rel="icon" href="../../mark.svg" type="image/svg+xml">
+</head>
+<body class="app">
+<a class="skip" href="#view">Ir a la prueba</a>
+<p class="demo-banner" role="note"><strong>Prueba.</strong> Cada perfil es un ejemplo ficticio. Nada de lo que eliges sale de este navegador.</p>
+<header class="app-head">
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../../mark.svg" alt="" width="30" height="30">vibematch</a>
+    <span class="progress" id="progress" aria-live="polite">Paso 1 de 3</span>
+    <details class="locale">
+      <summary aria-label="Idioma">A/文 <span lang="es">Español</span></summary>
+      <nav class="menu" aria-label="Idioma">
+        <a href="../../app/" lang="en">English</a>
+        <a href="./" lang="es" aria-current="true">Español</a>
+        <a href="../../zh-Hans/app/" lang="zh-Hans">中文（简体）</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main id="view" class="app-main" tabindex="-1"></main>
+
+<dialog id="opener-dialog" aria-labelledby="opener-title">
+  <h2 id="opener-title"></h2>
+  <p id="opener-text"></p>
+  <p class="muted">En el producto real enviamos esto a su bandeja. En la prueba nada sale de esta página.</p>
+  <div class="btns"><button type="button" class="btn primary" id="opener-close">Cerrar</button></div>
+</dialog>
+
+<script type="module" src="../../app/app.js"></script>
+</body>
+</html>
