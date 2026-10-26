@@ -1,112 +1,22 @@
 // The VibeMatch vibe check: pick signals, set two dials, meet three sample people whose vibes rhyme.
 // It runs in this tab only (the pages are served with connect-src 'none'), and every profile is fictional.
 // The score and its two parts are the ones the about page writes down: 72% shared signals + 28% dial closeness.
+// Its safety shape is the family's: an 18+ gate before the check, and report and block on every profile.
 import { VIBES, GROUPS, labelOf } from "./vibes.js";
 import { SAMPLE_PROFILES } from "./profiles.js";
 import { avatarSvg } from "./avatar.js";
 import { rankedMatches } from "./score.js";
+import { M } from "./i18n.js";
+import { REASONS, visibleMatches, reportMailto } from "./safety.js";
 
 const locale = ["en", "es", "zh-Hans"].includes(document.documentElement.lang) ? document.documentElement.lang : "en";
-
-const M = {
-  en: {
-    step: (n) => `Step ${n} of 3`,
-    steps: ["Signals", "Dials", "Matches"],
-    pickTitle: "What feels like you?",
-    pickLede: "Choose at least four of the sixteen. There is no right answer, and no essay question after this.",
-    picked: (n) => (n < 4 ? `${n} of 4 chosen` : `${n} chosen`),
-    groups: { tempo: "Tempo", taste: "Taste", people: "People", mode: "Mode" },
-    next: "Next",
-    back: "Back",
-    dialTitle: "Set your two dials",
-    dialLede: "Where your week sits, and how deep you like to talk. Close is enough; we are not grading you.",
-    tempoLow: "slow", tempoHigh: "fast", tempoName: "Tempo",
-    depthLow: "silly", depthHigh: "deep", depthName: "Depth",
-    find: "Find my people",
-    matchTitle: "Three people whose vibe rhymes",
-    matchLede: "Each one names the signals you share and how close your dials sit. Nothing was sent anywhere.",
-    score: (n) => `${n}% vibe`,
-    shared: (n) => `${n} shared`,
-    sharedNone: "no signals in common yet",
-    dials: (t, d) => `dials: tempo ${t}, depth ${d}`,
-    sayHi: "Say hi",
-    openerTitle: (name) => `Your intro to ${name}`,
-    openerNote: "In the real product we send this to their inbox. In the demo nothing leaves this page.",
-    close: "Close",
-    again: "Start the check again",
-    sample: "Sample profile",
-    sent: "Intro written",
-    need: "Choose at least four signals to go on.",
-    born: "The score is 72% shared signals + 28% dial closeness, rounded. Two people can disagree with it; that is why the parts are shown.",
-  },
-  es: {
-    step: (n) => `Paso ${n} de 3`,
-    steps: ["Señales", "Diales", "Coincidencias"],
-    pickTitle: "¿Qué se siente como tú?",
-    pickLede: "Elige al menos cuatro de las dieciséis. No hay respuesta correcta ni pregunta de ensayo después.",
-    picked: (n) => (n < 4 ? `${n} de 4 elegidas` : `${n} elegidas`),
-    groups: { tempo: "Ritmo", taste: "Gusto", people: "Gente", mode: "Modo" },
-    next: "Siguiente",
-    back: "Atrás",
-    dialTitle: "Ajusta tus dos diales",
-    dialLede: "Dónde está tu semana y qué tan profundo te gusta hablar. Cerca ya alcanza; no estamos calificando.",
-    tempoLow: "lento", tempoHigh: "rápido", tempoName: "Ritmo",
-    depthLow: "juguetón", depthHigh: "profundo", depthName: "Profundidad",
-    find: "Buscar mi gente",
-    matchTitle: "Tres personas cuya vibra rima",
-    matchLede: "Cada una nombra las señales que comparten y qué tan cerca están sus diales. No se envió nada a ningún lado.",
-    score: (n) => `${n}% de vibra`,
-    shared: (n) => `${n} en común`,
-    sharedNone: "ninguna señal en común todavía",
-    dials: (t, d) => `diales: ritmo ${t}, profundidad ${d}`,
-    sayHi: "Saludar",
-    openerTitle: (name) => `Tu presentación a ${name}`,
-    openerNote: "En el producto real enviamos esto a su bandeja. En la prueba nada sale de esta página.",
-    close: "Cerrar",
-    again: "Empezar la prueba otra vez",
-    sample: "Perfil de ejemplo",
-    sent: "Presentación escrita",
-    need: "Elige al menos cuatro señales para seguir.",
-    born: "El puntaje es 72% señales compartidas + 28% cercanía de diales, redondeado. Dos personas pueden no estar de acuerdo; por eso mostramos las partes.",
-  },
-  "zh-Hans": {
-    step: (n) => `第 ${n} 步，共 3 步`,
-    steps: ["信号", "旋钮", "匹配"],
-    pickTitle: "什么感觉像你？",
-    pickLede: "从十六个里至少选四个。没有正确答案，之后也没有小作文。",
-    picked: (n) => (n < 4 ? `已选 ${n} 个，共需 4 个` : `已选 ${n} 个`),
-    groups: { tempo: "节奏", taste: "品味", people: "人", mode: "状态" },
-    next: "下一步",
-    back: "返回",
-    dialTitle: "调好两个旋钮",
-    dialLede: "你的一周落在哪里，你多喜欢深聊。接近就够了；我们不是在打分。",
-    tempoLow: "慢", tempoHigh: "快", tempoName: "节奏",
-    depthLow: "轻松", depthHigh: "深入", depthName: "深度",
-    find: "找到我的人",
-    matchTitle: "三个和你氛围押韵的人",
-    matchLede: "每一个都写明你们共享的信号，以及旋钮有多接近。什么都没有发送到任何地方。",
-    score: (n) => `${n}% 氛围`,
-    shared: (n) => `共享 ${n} 个`,
-    sharedNone: "暂时没有共同信号",
-    dials: (t, d) => `旋钮：节奏 ${t}，深度 ${d}`,
-    sayHi: "打个招呼",
-    openerTitle: (name) => `你给 ${name} 的开场`,
-    openerNote: "在真实产品里，我们会把它发到对方的收件箱。在演示里，什么都不会离开这个页面。",
-    close: "关闭",
-    again: "重新开始测试",
-    sample: "样例档案",
-    sent: "开场已写好",
-    need: "至少选四个信号再继续。",
-    born: "分数是 72% 共享信号 + 28% 旋钮贴近度，取整。两个人可以不同意它；所以我们把两部分都写出来。",
-  },
-};
 const t = M[locale];
 
 const view = document.getElementById("view");
 const progress = document.getElementById("progress");
 const openerDialog = document.getElementById("opener-dialog");
 
-const state = { picks: [], tempo: 50, depth: 50, intro: null };
+const state = { picks: [], tempo: 50, depth: 50, intro: null, blocked: [], aged: false };
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 function stepHead(n) {
@@ -114,6 +24,33 @@ function stepHead(n) {
     <ol class="track" aria-label="${esc(t.step(n))}">
       ${t.steps.map((s, i) => `<li${i + 1 === n ? ' aria-current="step"' : ""}${i + 1 < n ? ' class="done"' : ""}>${esc(s)}</li>`).join("")}
     </ol>`;
+}
+
+// The gate is the first thing on the page and nothing of the check exists behind it: the board is not
+// drawn, so there is nothing to click past. A refusal records nothing and sends nothing.
+function showGate() {
+  view.innerHTML = `<section class="panel gate" aria-labelledby="gate-title">
+    <h1 id="gate-title" tabindex="-1">${esc(t.gateTitle)}</h1>
+    <p class="lede">${esc(t.gateLede)}</p>
+    <div class="btns">
+      <button type="button" class="btn primary" id="gate-yes">${esc(t.gateYes)}</button>
+      <button type="button" class="btn" id="gate-no">${esc(t.gateNo)}</button>
+    </div>
+    <p class="muted"><a href="../about.html#safety">${esc(t.safety)}</a></p>
+  </section>`;
+  progress.textContent = "";
+  document.getElementById("gate-yes").addEventListener("click", () => {
+    state.aged = true;
+    showSignals();
+  });
+  document.getElementById("gate-no").addEventListener("click", () => {
+    view.innerHTML = `<section class="panel gate">
+      <h1 id="gate-late" tabindex="-1">${esc(t.gateLate)}</h1>
+      <div class="btns"><a class="btn" href="../">${esc(t.gateHome)}</a></div>
+    </section>`;
+    document.getElementById("gate-late").focus({ preventScroll: true });
+  });
+  document.getElementById("gate-title").focus({ preventScroll: true });
 }
 
 function showSignals() {
@@ -194,23 +131,36 @@ function showDials() {
 function showMatches() {
   const me = { picks: state.picks, tempo: state.tempo, depth: state.depth };
   const ranked = rankedMatches(SAMPLE_PROFILES, me);
+  const shown = visibleMatches(ranked, state.blocked);
+  const blocked = ranked.map(({ profile }) => profile).filter((p) => state.blocked.includes(p.id));
 
   view.innerHTML = `<section class="panel" aria-labelledby="match-title">
     ${stepHead(3)}
     <h1 id="match-title">${esc(t.matchTitle)}</h1>
     <p class="lede">${esc(t.matchLede)}</p>
-    <ul class="matches">
-      ${ranked.map(({ profile: p, score, shared }) => `<li class="match">
+    ${shown.length ? `<ul class="matches">
+      ${shown.map(({ profile: p, score, shared }) => `<li class="match">
         <div class="face">${avatarSvg(p, 96)}</div>
         <div class="body">
           <p class="who"><strong>${esc(p.name)}</strong> <span class="pron">${esc(p.pronouns)}</span> <span class="pill">${esc(t.sample)}</span></p>
           <p class="blurb">${esc(p.blurb[locale])}</p>
           <p class="shared">${shared.length ? esc(t.shared(shared.length)) + ": " + shared.map((id) => `<span class="chip small">${esc(labelOf(id, locale))}</span>`).join(" ") : esc(t.sharedNone)}</p>
           <p class="why"><span class="score">${esc(t.score(score))}</span> <span class="dials">${esc(t.dials(p.tempo, p.depth))}</span></p>
-          <button type="button" class="btn quiet hi" data-id="${p.id}">${esc(t.sayHi)}</button>
+          <div class="acts">
+            <button type="button" class="btn quiet hi" data-id="${p.id}">${esc(t.sayHi)}</button>
+            <button type="button" class="btn quiet report" data-id="${p.id}">${esc(t.report)}</button>
+            <button type="button" class="btn quiet block" data-id="${p.id}">${esc(t.block)}</button>
+          </div>
         </div>
       </li>`).join("")}
-    </ul>
+    </ul>` : `<p class="notice" id="all-blocked">${esc(t.allBlocked)}</p>`}
+    ${blocked.length ? `<section class="blocked" aria-labelledby="blocked-title">
+      <h2 id="blocked-title">${esc(t.blockedTitle(blocked.length))}</h2>
+      <p class="muted">${esc(t.blockedNote)}</p>
+      <ul class="blocked-list">
+        ${blocked.map((p) => `<li><span>${esc(p.name)}</span> <button type="button" class="btn quiet unblock" data-id="${p.id}">${esc(t.unblock)}</button></li>`).join("")}
+      </ul>
+    </section>` : ""}
     <p class="born muted">${esc(t.born)}</p>
     <div class="btns">
       <button type="button" class="btn" id="back">${esc(t.back)}</button>
@@ -235,10 +185,66 @@ function showMatches() {
       openerDialog.showModal();
     });
   }
+  for (const b of view.querySelectorAll(".report")) {
+    b.addEventListener("click", () => openReport(SAMPLE_PROFILES.find((x) => x.id === b.dataset.id)));
+  }
+  for (const b of view.querySelectorAll(".block")) {
+    b.addEventListener("click", () => {
+      if (!state.blocked.includes(b.dataset.id)) state.blocked = [...state.blocked, b.dataset.id];
+      showMatches();
+    });
+  }
+  for (const b of view.querySelectorAll(".unblock")) {
+    b.addEventListener("click", () => {
+      state.blocked = state.blocked.filter((id) => id !== b.dataset.id);
+      showMatches();
+    });
+  }
   progress.textContent = t.step(3);
   document.getElementById("match-title").setAttribute("tabindex", "-1");
   document.getElementById("match-title").focus({ preventScroll: true });
 }
 
+// The report dialog: the page cannot call anywhere, so it writes the report and hands it to the visitor's
+// own mail app. Nothing is sent until they send it, and the dialog says where the report goes.
+const reportDialog = document.createElement("dialog");
+reportDialog.id = "report-dialog";
+reportDialog.setAttribute("aria-labelledby", "report-title");
+document.body.appendChild(reportDialog);
+
+function openReport(profile) {
+  reportDialog.innerHTML = `<h2 id="report-title"></h2>
+    <p class="muted">${esc(t.reportLede)}</p>
+    <label class="field"><span>${esc(t.reportReason)}</span>
+      <select id="report-reason">${REASONS.map((r) => `<option value="${r}">${esc(t.reasons[r])}</option>`).join("")}</select>
+    </label>
+    <label class="field"><span>${esc(t.reportNote)}</span>
+      <textarea id="report-note" rows="3"></textarea>
+    </label>
+    <div class="btns">
+      <button type="button" class="btn" id="report-close">${esc(t.reportClose)}</button>
+      <a class="btn primary" id="report-send" href="#"></a>
+    </div>`;
+  document.getElementById("report-title").textContent = t.reportTitle(profile.name);
+  const reason = document.getElementById("report-reason");
+  const note = document.getElementById("report-note");
+  const send = document.getElementById("report-send");
+  send.textContent = t.reportSend;
+  const sync = () => {
+    try {
+      send.href = reportMailto({ profile, reason: reason.value, reasonLabel: t.reasons[reason.value], note: note.value, page: location.href });
+    } catch {
+      send.removeAttribute("href");
+    }
+  };
+  reason.addEventListener("change", sync);
+  note.addEventListener("input", sync);
+  document.getElementById("report-close").addEventListener("click", () => reportDialog.close());
+  sync();
+  reportDialog.showModal();
+  reason.focus();
+}
+
 document.getElementById("opener-close").addEventListener("click", () => openerDialog.close());
-showSignals();
+if (state.aged) showSignals();
+else showGate();

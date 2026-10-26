@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 import { VIBES, GROUPS } from "../app/vibes.js";
 import { SAMPLE_PROFILES } from "../app/profiles.js";
 import { scoreOf } from "../app/score.js";
+import { M } from "../app/i18n.js";
+import { REASONS, visibleMatches, reportMailto } from "../app/safety.js";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const LOCALES = { en: "", es: "es/", "zh-Hans": "zh-Hans/" };
@@ -60,8 +62,9 @@ test("every relative link and image resolves to a file", () => {
     for (const page of PAGES) {
       const rel = join(prefix, page);
       const html = read(rel);
-      for (const [, url] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
-        if (/^(?:https?:|mailto:|#)/.test(url)) continue;
+      for (const [, href] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+        if (/^(?:https?:|mailto:|#)/.test(href)) continue;
+        const url = href.split("#")[0];
         const target = resolve(dirname(join(root, rel)), url);
         const exists = existsSync(target) || existsSync(join(target, "index.html"));
         assert.ok(exists, `${rel}: ${url} resolves`);
@@ -107,4 +110,69 @@ test("the score is 72% shared signals + 28% dial closeness, as the about page sa
   assert.deepEqual(got.shared.sort(), ["slow-sunday", "talk-ideas"]);
   assert.equal(got.overlap, 0.25);
   assert.equal(got.score, 40);
+});
+
+test("every string the vibe check draws is in all three locales, the gate and the safety controls included", () => {
+  const en = M.en;
+  for (const locale of Object.keys(LOCALES)) {
+    const m = M[locale];
+    assert.deepEqual(Object.keys(m).sort(), Object.keys(en).sort(), `${locale}: the same strings as English`);
+    for (const [key, value] of Object.entries(m)) {
+      if (typeof value === "function") continue;
+      if (typeof value === "string") {
+        assert.ok(value.trim(), `${locale}.${key} has words`);
+        continue;
+      }
+      assert.deepEqual(Object.keys(value).sort(), Object.keys(en[key]).sort(), `${locale}.${key}: the same keys`);
+    }
+    assert.deepEqual(Object.keys(m.reasons).sort(), [...REASONS].sort(), `${locale}: a word for every report reason`);
+    for (const reason of REASONS) assert.ok(m.reasons[reason].trim(), `${locale}: ${reason} has a word`);
+    for (const key of ["gateTitle", "gateLede", "gateYes", "gateNo", "gateLate", "report", "block", "unblock", "blockedNote"])
+      assert.ok(m[key], `${locale}.${key}`);
+    assert.ok(m.reportTitle("Ana").includes("Ana"), `${locale}: the report names the person`);
+    assert.ok(m.blockedTitle(2).includes("2"), `${locale}: the blocked list counts`);
+  }
+});
+
+test("the site says 18 and older, report and block, and where a report goes, in all three locales", () => {
+  const words = {
+    en: ["18", "Report", "Block", "24"],
+    es: ["18", "Denunciar", "Bloquear", "24"],
+    "zh-Hans": ["18", "举报", "屏蔽", "24"],
+  };
+  for (const [locale, prefix] of Object.entries(LOCALES)) {
+    const about = read(join(prefix, "about.html"));
+    const at = about.indexOf('id="safety"');
+    assert.ok(at > -1, `${locale}: the safety section`);
+    const nextHeading = about.indexOf("<h2", at);
+    const safety = about.slice(at, nextHeading > -1 ? nextHeading : undefined);
+    assert.ok(safety.includes("hello@vibematch.dev"), `${locale}: the queue's address`);
+    for (const word of words[locale]) assert.ok(safety.includes(word), `${locale}: the safety section says ${word}`);
+
+    const home = read(join(prefix, "index.html"));
+    assert.match(home, /18\s*\+|18 岁|18 años/, `${locale}: the landing page names the age`);
+    assert.ok(home.includes('href="about.html#safety"'), `${locale}: the landing page reaches the safety section`);
+  }
+});
+
+test("a block hides only that profile, and a report names the profile, the reason and the note", () => {
+  const ranked = SAMPLE_PROFILES.slice(0, 3).map((profile, i) => ({ profile, score: 90 - i, shared: [] }));
+  const [first, second] = ranked;
+
+  assert.deepEqual(
+    visibleMatches(ranked, [first.profile.id]).map((r) => r.profile.id),
+    ranked.slice(1).map((r) => r.profile.id),
+    "the blocked one is gone and the others stay",
+  );
+  assert.equal(visibleMatches(ranked, []).length, 3, "no block shows every match");
+  assert.equal(visibleMatches(ranked, ranked.map((r) => r.profile.id)).length, 0, "every block hides every match");
+
+  const href = reportMailto({ profile: second.profile, reason: "harassment", reasonLabel: "Harassment or bullying", note: "said something cruel" });
+  assert.ok(href.startsWith("mailto:hello@vibematch.dev?"), href);
+  const body = decodeURIComponent(href.slice(href.indexOf("&body=") + 6));
+  assert.ok(decodeURIComponent(href).includes(second.profile.id), "the report names the profile");
+  assert.ok(body.includes("Harassment or bullying"), "the report names the reason");
+  assert.ok(body.includes("said something cruel"), "the report carries the note");
+  assert.ok(body.includes("24 hours"), "the report says when a person reviews it");
+  assert.throws(() => reportMailto({ profile: second.profile, reason: "rude" }), /unknown report reason/, "a reason outside the list is refused");
 });

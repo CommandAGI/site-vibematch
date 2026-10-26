@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// The main flow, from a blank visit, in a real browser: the landing page, the vibe check (five signals, two
-// dials, three matches, an intro), and the A/文 picker into each locale. No page error, no console error, and
-// nothing loaded from anywhere but this site. It serves the folder itself, or takes a live address:
+// The main flow, from a blank visit, in a real browser: the landing page, the 18+ gate, the vibe check (five
+// signals, two dials, three matches, an intro, a report and a block), and the A/文 picker into each locale. No
+// page error, no console error, and nothing loaded from anywhere but this site. It serves the folder itself,
+// or takes a live address:
 //
 //   node tests/journey.mjs                              the folder, served here
 //   node tests/journey.mjs --url https://vibematch.commandagi.app
@@ -141,6 +142,17 @@ try {
 
   // 2. The main flow: the vibe check, through the visible controls.
   await page.click("[...document.querySelectorAll('a')].find(a => a.textContent.includes('vibe check'))");
+  // The 18+ gate comes first: nothing of the check is on the page until the visitor says they are 18 or older.
+  await waitFor(page, 'document.getElementById("gate-yes")');
+  check(await page.eval('document.querySelectorAll(".signal").length') === 0, "no signals are behind the gate");
+  await page.shot("02-gate.png");
+  // A refusal shows no check and says why, and the next visit asks again: nothing was recorded.
+  await page.click('document.getElementById("gate-no")');
+  await waitFor(page, 'document.getElementById("gate-late")');
+  check(await page.eval('document.querySelectorAll(".signal").length') === 0, "a refusal shows no check");
+  await page.goto(new URL("app/", url).href);
+  await waitFor(page, 'document.getElementById("gate-yes")');
+  await page.click('document.getElementById("gate-yes")');
   await signalsUp(page, "main flow");
   check(await page.eval('location.pathname.replace(/\\/$/, "")').then((p) => p.endsWith("/app")), "the vibe check is open");
   for (const id of ["slow-sunday", "bookshop", "one-to-one", "talk-ideas", "make-things"])
@@ -166,7 +178,33 @@ try {
   await page.shot("03-intro.png");
   await page.click('document.getElementById("opener-close")');
 
-  // 4. The A/文 picker reaches the same page in each locale, and the app speaks that locale.
+  // 4. Report: the dialog writes the report for the visitor's own mail app, and names the profile and the reason.
+  // The page sends nothing: it cannot call anywhere, and the journey reads the link rather than opening it.
+  await page.click('document.querySelector(".match .report")');
+  await waitFor(page, 'document.getElementById("report-dialog").open');
+  await page.eval(`(() => { const r = document.getElementById("report-reason");
+    r.value = "harassment"; r.dispatchEvent(new Event("change")); return true; })()`);
+  const reportHref = await page.eval('document.getElementById("report-send").getAttribute("href")');
+  const report = decodeURIComponent(reportHref);
+  check(report.startsWith("mailto:hello@vibematch.dev?"), `the report goes to the queue's address: ${reportHref}`);
+  check(report.includes("Reason: Harassment or bullying"), "the report names the reason");
+  check(report.includes("24 hours"), "the report says when a person reviews it");
+  await page.shot("04-report.png");
+  await page.click('document.getElementById("report-close")');
+
+  // 5. Block hides that person from the matches in this tab, and unblocking brings them back.
+  const matchIds = () => page.eval('[...document.querySelectorAll(".match .who strong")].map((e) => e.textContent)');
+  const before = await matchIds();
+  await page.click('document.querySelector(".match .block")');
+  await waitFor(page, 'document.querySelectorAll(".match").length === 2');
+  check(await page.eval('document.querySelectorAll(".blocked-list .unblock").length') === 1, "the blocked list holds the person who was blocked");
+  check(!(await matchIds()).includes(before[0]), `${before[0]} is hidden from the matches`);
+  await page.shot("05-blocked.png");
+  await page.click('document.querySelector(".blocked-list .unblock")');
+  await waitFor(page, 'document.querySelectorAll(".match").length === 3');
+  check(JSON.stringify(await matchIds()) === JSON.stringify(before), "unblocking brings the match back in place");
+
+  // 6. The A/文 picker reaches the same page in each locale, and the app speaks that locale.
   for (const [locale, prefix, pageWord, appWord] of [
     ["es", "es/", "No necesitas una biografía", "¿Qué se siente"],
     ["zh-Hans", "zh-Hans/", "你不需要一份简介", "什么感觉像你"],
@@ -179,12 +217,14 @@ try {
     await sleep(300);
     check((await page.eval("document.body.textContent")).includes(pageWord), `the ${locale} page is in ${locale}`);
     await page.click('document.querySelector(\'.site-nav a[href$="app/"]\')');
+    await waitFor(page, 'document.getElementById("gate-yes")');
+    await page.click('document.getElementById("gate-yes")');
     await signalsUp(page, `${locale} app`);
     check((await page.eval("document.body.textContent")).includes(appWord), `the ${locale} vibe check is in ${locale}`);
-    await page.shot(`04-${locale}-app.png`);
+    await page.shot(`06-${locale}-app.png`);
   }
 
-  // 5. Nothing loaded from anywhere else, and nothing failed.
+  // 7. Nothing loaded from anywhere else, and nothing failed.
   // A request the page's own policy blocked is not a load; a response from elsewhere would be.
   const foreign = page.requests.filter((u) => !u.startsWith(url) && !u.startsWith("data:") && u !== "about:blank" && !page.blocked.includes(u));
   check(foreign.length === 0, `nothing requested from elsewhere: ${foreign}`);
@@ -193,7 +233,7 @@ try {
   check(page.errors.length === 0, `no page error: ${page.errors}`);
   check(page.consoleErrors.length === 0, `no console error: ${page.consoleErrors}`);
 
-  console.log(`ok: ${url} — the landing page, the vibe check (5 signals, 3 ranked matches, an intro), es and zh-Hans, no page or console error, ${page.requests.length} requests, all on site.`);
+  console.log(`ok: ${url} — the landing page, the 18+ gate, the vibe check (5 signals, 3 ranked matches, an intro, a report and a block), es and zh-Hans, no page or console error, ${page.requests.length} requests, all on site.`);
   console.log(`screenshots: ${out}`);
 } finally {
   page.close();

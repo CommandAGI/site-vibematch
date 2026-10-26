@@ -47,6 +47,16 @@ body.app { background: var(--bg); }
 .score { font-weight: 800; color: var(--violet); }
 .dials { color: var(--muted); font-size: 0.86rem; }
 .born { font-size: 0.86rem; max-width: 46em; margin: 0 0 18px; }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.gate .btns { margin-top: 18px; }
+.gate .muted { margin-top: 20px; font-size: 0.9rem; }
+.field { display: block; margin: 14px 0; }
+.field > span { display: block; margin-bottom: 6px; color: var(--ink); font-size: 0.92rem; font-weight: 700; }
+.field select, .field textarea { box-sizing: border-box; width: 100%; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); padding: 9px 12px; font: 500 0.95rem var(--sans); }
+.blocked { margin: 22px 0 8px; background: var(--surface); border: 1px dashed var(--line); border-radius: 18px; padding: 16px 18px; }
+.blocked h2 { margin: 0 0 6px; color: var(--ink); font-size: 1.02rem; }
+.blocked-list { list-style: none; display: grid; gap: 8px; margin: 8px 0 0; padding: 0; }
+.blocked-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 
 dialog { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--text); padding: 22px; max-width: min(92vw, 460px); }
 dialog::backdrop { background: rgba(16, 8, 34, 0.5); }
