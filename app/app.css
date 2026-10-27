@@ -67,3 +67,6 @@ dialog .muted { color: var(--dim); font-size: 0.92rem; }
 .muted { color: var(--dim); }
 /* The header's live progress says the step; the panel's own line is for the reading order only. */
 .panel > .eyebrow { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+/* The motion switch arrives with the script; it sits over the stage's corner so its arrival moves nothing. */
+.stage { position: relative; }
+.stage > .motion { position: absolute; top: 0; right: var(--gutter); z-index: 2; }

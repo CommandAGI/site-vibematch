@@ -170,6 +170,6 @@ export function mountMotion(labels) {
   const draw = () => { b.setAttribute("aria-pressed", String(still)); b.textContent = still ? labels.off : labels.on; };
   b.addEventListener("click", () => { setStill(!still); draw(); sync(); });
   draw();
-  (document.querySelector(".site-foot .row, .app-head .wrap") ?? document.body).append(b);
+  (document.querySelector(".site-foot .row, .stage") ?? document.body).append(b);
   sync();
 }
