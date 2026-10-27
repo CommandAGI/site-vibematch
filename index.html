@@ -3,92 +3,147 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>VibeMatch: meet people by vibe, not by bio</title>
 <meta name="description" content="VibeMatch introduces you to people who feel like your kind of night out: sixteen signals, two dials, three introductions, each with the vibes you share.">
+<meta name="theme-color" content="#0c0a10">
+<meta property="og:title" content="VibeMatch: meet people by vibe, not by bio">
+<meta property="og:description" content="VibeMatch introduces you to people who feel like your kind of night out: sixteen signals, two dials, three introductions, each with the vibes you share.">
+<meta property="og:image" content="https://vibematch.commandagi.app/og.png">
+<meta property="og:url" content="https://vibematch.commandagi.app/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" hreflang="en" href="https://vibematch.commandagi.app/">
 <link rel="alternate" hreflang="es" href="https://vibematch.commandagi.app/es/">
 <link rel="alternate" hreflang="zh-Hans" href="https://vibematch.commandagi.app/zh-Hans/">
 <link rel="alternate" hreflang="x-default" href="https://vibematch.commandagi.app/">
+<link rel="preload" href="fonts/syne.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="touch-icon.png">
+<script type="module" src="home.js"></script>
 </head>
-<body>
+<body class="home">
 <a class="skip" href="#main">Skip to the content</a>
 <header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="./"><img src="mark.svg" alt="" width="34" height="34">vibematch</a>
-    <nav class="site-nav" aria-label="Site">
-      <a href="./" aria-current="page">Home</a>
-      <a href="#how">How it works</a>
-      <a href="app/">Vibe check</a>
-      <a href="about.html">About</a>
-    </nav>
-  </div>
+  <a class="brand" href="./" aria-label="VibeMatch, Home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -900 8407 930" aria-hidden="true" focusable="false">
+<defs><radialGradient id="vm-a"><stop offset="0" stop-color="#ff6f61"/><stop offset="1" stop-color="#ff6f61" stop-opacity="0"/></radialGradient><radialGradient id="vm-b"><stop offset="0" stop-color="#3fe0d0"/><stop offset="1" stop-color="#3fe0d0" stop-opacity="0"/></radialGradient></defs>
+<path id="wm-glyphs" fill="currentColor" d="M510 -90 396 -92 648 -490H913L564 0H338L5 -490H269Z M933 -490H1173V0H933Z M1888 14Q1798 14 1726.0 -4.5Q1654 -23 1603.0 -57.5Q1552 -92 1525.0 -139.5Q1498 -187 1498 -245Q1498 -303 1525.0 -351.0Q1552 -399 1603.0 -433.5Q1654 -468 1726.0 -486.5Q1798 -505 1888 -505Q1996 -505 2080.5 -476.0Q2165 -447 2213.0 -389.0Q2261 -331 2261 -245Q2261 -163 2213.0 -105.0Q2165 -47 2080.5 -16.5Q1996 14 1888 14ZM1798 -138Q1866 -138 1914.0 -150.0Q1962 -162 1987.0 -186.0Q2012 -210 2012 -245Q2012 -299 1956.0 -325.5Q1900 -352 1798 -352Q1722 -352 1658.5 -343.0Q1595 -334 1556.5 -311.0Q1518 -288 1518 -245Q1518 -203 1556.5 -180.0Q1595 -157 1658.5 -147.5Q1722 -138 1798 -138ZM1518 -690V-190Q1518 -126 1513.5 -74.5Q1509 -23 1504 0H1278V-690Z M2979 -176H3215Q3206 -118 3157.5 -75.0Q3109 -32 3016.5 -8.5Q2924 15 2781 15Q2630 15 2520.5 -9.0Q2411 -33 2352.0 -90.0Q2293 -147 2293 -244Q2293 -340 2350.5 -397.5Q2408 -455 2517.0 -480.0Q2626 -505 2781 -505Q2933 -505 3030.0 -478.0Q3127 -451 3173.0 -390.5Q3219 -330 3217 -227H2537Q2542 -201 2565.5 -179.0Q2589 -157 2638.5 -143.5Q2688 -130 2771 -130Q2857 -130 2912.5 -142.0Q2968 -154 2979 -176ZM2771 -360Q2665 -360 2609.5 -337.0Q2554 -314 2544 -291H2984Q2977 -317 2928.0 -338.5Q2879 -360 2771 -360Z M3263 -490H3503V0H3263ZM3863 -505Q3922 -505 3977.0 -492.5Q4032 -480 4075.5 -450.0Q4119 -420 4145.0 -368.0Q4171 -316 4171 -237V0H3931V-207Q3931 -282 3892.0 -313.5Q3853 -345 3751 -345Q3697 -345 3646.5 -333.0Q3596 -321 3556.0 -304.5Q3516 -288 3493 -272L3491 -310Q3495 -328 3518.5 -360.5Q3542 -393 3587.0 -426.0Q3632 -459 3700.5 -482.0Q3769 -505 3863 -505ZM4519 -505Q4578 -505 4633.0 -492.5Q4688 -480 4731.5 -450.0Q4775 -420 4801.0 -368.0Q4827 -316 4827 -237V0H4587V-207Q4587 -282 4548.0 -313.5Q4509 -345 4407 -345Q4353 -345 4302.5 -333.0Q4252 -321 4212.0 -304.5Q4172 -288 4149 -272L4147 -320Q4151 -335 4177.0 -365.0Q4203 -395 4250.5 -427.0Q4298 -459 4365.5 -482.0Q4433 -505 4519 -505Z M5228 14Q5120 14 5036.0 -16.5Q4952 -47 4903.5 -105.0Q4855 -163 4855 -245Q4855 -331 4903.5 -389.0Q4952 -447 5036.0 -476.0Q5120 -505 5228 -505Q5348 -505 5435.5 -472.5Q5523 -440 5570.5 -381.5Q5618 -323 5618 -245Q5618 -187 5591.0 -139.5Q5564 -92 5513.0 -57.5Q5462 -23 5390.0 -4.5Q5318 14 5228 14ZM5318 -138Q5394 -138 5457.5 -147.5Q5521 -157 5559.5 -180.0Q5598 -203 5598 -245Q5598 -288 5559.5 -311.0Q5521 -334 5457.5 -343.0Q5394 -352 5318 -352Q5216 -352 5160.0 -325.5Q5104 -299 5104 -245Q5104 -210 5129.0 -186.0Q5154 -162 5202.0 -150.0Q5250 -138 5318 -138ZM5598 -490H5838V0H5612Q5612 0 5608.5 -23.0Q5605 -46 5601.5 -89.0Q5598 -132 5598 -190Z M5863 -490H6451V-340H5863ZM6037 -640H6277V0H6037Z M7400 -213Q7400 -141 7355.0 -90.0Q7310 -39 7213.0 -12.0Q7116 15 6961 15Q6806 15 6697.5 -10.0Q6589 -35 6532.5 -92.0Q6476 -149 6476 -244Q6476 -339 6532.5 -396.5Q6589 -454 6697.5 -479.5Q6806 -505 6961 -505Q7116 -505 7212.0 -478.0Q7308 -451 7353.0 -400.0Q7398 -349 7399 -278H7179Q7163 -317 7107.0 -338.5Q7051 -360 6961 -360Q6888 -360 6834.0 -349.5Q6780 -339 6750.5 -314.0Q6721 -289 6721 -244Q6721 -200 6750.0 -175.0Q6779 -150 6833.0 -140.0Q6887 -130 6961 -130Q7051 -130 7107.5 -151.5Q7164 -173 7180 -213Z M8122 0V-182Q8122 -227 8104.0 -258.0Q8086 -289 8040.5 -304.5Q7995 -320 7912 -320Q7865 -320 7820.5 -311.5Q7776 -303 7740.5 -291.0Q7705 -279 7684 -267L7682 -315Q7686 -330 7709.5 -360.5Q7733 -391 7778.0 -424.5Q7823 -458 7891.5 -481.5Q7960 -505 8054 -505Q8113 -505 8168.0 -494.0Q8223 -483 8266.5 -457.5Q8310 -432 8336.0 -389.0Q8362 -346 8362 -282V0ZM7454 0V-690H7694V0Z"/>
+<circle cx="975" cy="-650" r="240" fill="url(#vm-a)"/><circle cx="1131" cy="-650" r="240" fill="url(#vm-b)"/><circle cx="1053" cy="-650" r="62" fill="currentColor"/>
+</svg></a>
+  <button class="menu-btn" type="button" popovertarget="site-nav">Menu</button>
+  <nav class="site-nav" id="site-nav" popover aria-label="Site">
+    <a href="./" aria-current="page">Home</a>
+    <a href="#how">How it works</a>
+    <a href="app/">Vibe check</a>
+    <a href="about.html">About</a>
+    <button class="btn quiet close" type="button" popovertarget="site-nav" popovertargetaction="hide">Close</button>
+  </nav>
 </header>
 
-<main id="main" class="wrap">
-  <section class="hero">
-    <div>
-      <h1>You don't need a bio. You need a vibe.</h1>
-      <p>VibeMatch introduces you to people who feel like your kind of night out. Sixteen small signals
-        about how you move through the world, two dials, and three introductions — each one shows the
-        vibes you share, and why we thought of you.</p>
+<main id="main">
+  <section class="film hero" aria-labelledby="hero-title">
+    <video class="loop" muted loop playsinline preload="auto" poster="media/auras.jpg" aria-hidden="true" tabindex="-1">
+      <source src="media/auras.av1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+      <source src="media/auras.h264.mp4" type="video/mp4">
+    </video>
+    <h1 id="hero-title"><span class="h1-small">You don't need a <s>bio</s>.</span> <span class="h1-big">You need a vibe.</span></h1>
+    <ul class="bill"><li>sixteen signals</li><li>two dials</li><li>three introductions</li><li>free, early access</li></ul>
+    <div class="hero-foot">
       <div class="btns">
         <a class="btn primary" href="app/">Take the vibe check</a>
-        <a class="btn" href="#how">How matching works</a>
+        <a class="btn" href="#aura">Make an aura first</a>
       </div>
-      <p class="notice"><strong>Early access, free.</strong> The vibe check runs on eight fictional sample
-        profiles, in your browser only. Nothing you choose leaves the page.</p>
+      <p class="notice"><strong>A demo, in your browser only.</strong> It runs on eight fictional sample profiles. Nothing you choose leaves the page.</p>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <svg viewBox="0 0 360 300" width="360" height="300" xmlns="http://www.w3.org/2000/svg">
-        <rect width="360" height="300" rx="28" fill="#f3ebff"/>
-        <circle cx="128" cy="150" r="64" fill="#7b5cff" opacity="0.85"/>
-        <circle cx="228" cy="150" r="64" fill="#ff9b5c" opacity="0.85"/>
-        <path d="M150 150c9-26 16-26 25 0s16 26 25 0" fill="none" stroke="#fff9f4" stroke-width="7" stroke-linecap="round"/>
-        <text x="180" y="252" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" fill="#625a78">two vibes, one overlap</text>
-      </svg>
+    <p class="caption">Generated loop, not footage</p>
+  </section>
+
+  <section class="section" id="aura" aria-labelledby="aura-title">
+    <div class="sec-head rise">
+      <p class="eyebrow"><b>01</b> make an aura</p>
+      <h2 id="aura-title">Pick what feels like you. Watch it glow.</h2>
+      <p>Each signal is a light. Your aura forms in the middle; the sample people drift in when your vibes rhyme.</p>
+    </div>
+    <div class="mixer" data-you="you">
+      <div class="setlist" id="setlist"><noscript><p>The aura needs JavaScript. The vibe check does too: it runs in this page and calls nowhere.</p></noscript></div>
+      <div class="field-wrap">
+        <div class="field" id="field">
+          <canvas class="me" id="me" width="600" height="600" aria-hidden="true"></canvas>
+          <p class="me-label" aria-hidden="true">you</p>
+        </div>
+        <p class="readout" id="readout" aria-live="polite"></p>
+        <p class="legend">Eight fictional sample people, drawn in your browser. An aura is a picture of your answers, not a measurement of you.</p>
+      </div>
+      <div>
+        <div class="faders">
+          <label class="fader"><span class="label">Tempo</span>
+            <span class="fader-row"><span class="ends ends-low">slow</span><input type="range" id="tempo" min="0" max="100" step="1" value="50"><span class="ends ends-high">fast</span></span>
+          </label>
+          <label class="fader"><span class="label">Depth</span>
+            <span class="fader-row"><span class="ends ends-low">silly</span><input type="range" id="depth" min="0" max="100" step="1" value="50"><span class="ends ends-high">deep</span></span>
+          </label>
+        </div>
+        <p class="to-app"><a class="btn primary" id="to-app" href="app/">Take the vibe check</a></p>
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="how">
-    <h2 id="how">How matching works</h2>
-    <ol class="steps">
-      <li><strong>Pick your signals.</strong> Sixteen words, four groups: tempo, taste, people and mode. Choose the four or more that feel like you.</li>
-      <li><strong>Set two dials.</strong> How fast your days run, and how deep you like to talk. No essay questions.</li>
-      <li><strong>Meet three people.</strong> Each introduction names the signals you share and how close your dials are. If you like one, we say hi for you.</li>
+  <section class="film how" id="how" aria-labelledby="how-title">
+    <video class="loop" muted loop playsinline preload="none" poster="media/record.jpg" aria-hidden="true" tabindex="-1">
+      <source src="media/record.av1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+      <source src="media/record.h264.mp4" type="video/mp4">
+    </video>
+    <h2 id="how-title" class="rise">How matching works</h2>
+    <ol class="lineup">
+      <li class="rise"><strong>Pick your signals.</strong><span>Sixteen words in four groups. Choose four or more.</span></li>
+      <li class="rise"><strong>Set two dials.</strong><span>How fast your days run, how deep you like to talk.</span></li>
+      <li class="rise"><strong>Meet three people.</strong><span>Each names the signals you share. Like one, and we say hi for you.</span></li>
     </ol>
-    <div class="board" aria-label="The sixteen signals">
-      <span class="chip">slow sunday</span><span class="chip">city pace</span><span class="chip">dance floor</span><span class="chip">late drive</span>
-      <span class="chip">thrift store</span><span class="chip">design showroom</span><span class="chip">record crate</span><span class="chip">bookshop</span>
-      <span class="chip">small circle</span><span class="chip">big table</span><span class="chip">one to one</span><span class="chip">crowd energy</span>
-      <span class="chip">make things</span><span class="chip">talk ideas</span><span class="chip">go outside</span><span class="chip">stay in</span>
-    </div>
+    <p class="caption">Generated loop, not footage</p>
   </section>
 
-  <section class="section" aria-labelledby="what">
-    <h2 id="what">What we leave out</h2>
-    <div class="cards">
-      <div class="card"><h3>No swipe deck</h3><p>There is nothing to pass. We show you three people and the reason for each one, and you decide who to meet.</p></div>
-      <div class="card"><h3>No photos required</h3><p>A vibe is words, not a selfie. Profiles are drawn in code today; yours can be a photo or a drawing when we open.</p></div>
-      <div class="card"><h3>Nothing for sale</h3><p>No boosts, no streaks, no countdowns, no "see who liked you". The free product is the product.</p></div>
-      <div class="card"><h3>Said out loud</h3><p>VibeMatch is run by AI agents and says so. They never pose as members or write to you as a person.</p></div>
+  <section class="section" id="what" aria-labelledby="what-title">
+    <div class="sec-head rise">
+      <p class="eyebrow"><b>02</b> the door policy</p>
+      <h2 id="what-title">What we leave out</h2>
     </div>
+    <ul class="door">
+      <li class="struck"><span class="word"><span class="sr">✕ </span>swipe deck</span><p class="note">Three people and the reason for each. You decide who to meet.</p></li>
+      <li class="struck"><span class="word"><span class="sr">✕ </span>required photos</span><p class="note">A vibe is words. Today's profiles are drawn in code.</p></li>
+      <li class="struck"><span class="word"><span class="sr">✕ </span>anything for sale</span><p class="note">No boosts, streaks, countdowns or “see who liked you”.</p></li>
+      <li class="lit"><span class="word">said out loud</span><p class="note">VibeMatch is run by AI agents, and says so. They never pose as members or write to you as a person.</p></li>
+    </ul>
   </section>
 
-  <section class="section" aria-labelledby="early">
-    <h2 id="early">Early access</h2>
-    <p>We are opening in small circles, one city at a time. Write to
-      <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a> with the three signals that feel most
-      like you, and we will write back when a circle opens near you.</p>
+  <section class="section" id="score" aria-labelledby="score-title">
+    <div class="sec-head">
+      <p class="eyebrow"><b>03</b> the score, with its work shown</p>
+      <h2 id="score-title" class="sr">The score</h2>
+    </div>
+    <p class="sum">
+      <span class="part"><span class="num">72</span><span class="label">% shared signals</span></span>
+      <span class="op" aria-hidden="true">+</span>
+      <span class="part"><span class="num">28</span><span class="label">% dial closeness</span></span>
+    </p>
+    <div class="verdict rise"><p><b>One reading, not a verdict.</b> Two people at 61 can have a better first evening than two at 84.</p><p>We show both parts so you can disagree with them. <a href="about.html#score">How we score, in full</a>.</p></div>
+  </section>
+
+  <section class="film early" id="early" aria-labelledby="early-title">
+    <video class="loop" muted loop playsinline preload="none" poster="media/rain.jpg" aria-hidden="true" tabindex="-1">
+      <source src="media/rain.av1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+      <source src="media/rain.h264.mp4" type="video/mp4">
+    </video>
+    <h2 id="early-title" class="rise">Early access</h2>
+    <p class="rise">We open in small circles, one city at a time, free. Write to <a class="mail" href="mailto:hello@vibematch.dev">hello@vibematch.dev</a> with the three signals that feel most like you, and we write back when a circle opens near you.</p>
+    <a class="btn primary" href="mailto:hello@vibematch.dev">Write to us</a>
+    <p class="caption">Generated loop, not footage</p>
   </section>
 </main>
 
 <footer class="site-foot">
-  <div class="wrap">
-    <span>VibeMatch, a company of CommandAGI &middot; <a href="about.html">About</a> &middot;
-      <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a></span>
+  <div class="big" aria-hidden="true"><svg viewBox="0 -900 8407 930"><use href="#wm-glyphs"/></svg></div>
+  <div class="row">
+    <div><p>VibeMatch, a company of CommandAGI &middot; <a href="about.html">About</a> &middot; <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a></p><p>Run by AI agents, and we say so. The moving pictures are generated; the people are samples.</p></div>
     <details class="locale">
       <summary aria-label="Language">A/文 <span lang="en">English</span></summary>
       <nav class="menu" aria-label="Language">

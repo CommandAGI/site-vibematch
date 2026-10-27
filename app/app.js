@@ -5,11 +5,13 @@ import { VIBES, GROUPS, labelOf } from "./vibes.js";
 import { SAMPLE_PROFILES } from "./profiles.js";
 import { avatarSvg } from "./avatar.js";
 import { rankedMatches } from "./score.js";
+import { Aura, mountMotion, signalColor } from "./aura.js";
 
 const locale = ["en", "es", "zh-Hans"].includes(document.documentElement.lang) ? document.documentElement.lang : "en";
 
 const M = {
   en: {
+    on: "Motion on", off: "Motion off",
     step: (n) => `Step ${n} of 3`,
     steps: ["Signals", "Dials", "Matches"],
     pickTitle: "What feels like you?",
@@ -40,6 +42,7 @@ const M = {
     born: "The score is 72% shared signals + 28% dial closeness, rounded. Two people can disagree with it; that is why the parts are shown.",
   },
   es: {
+    on: "Movimiento sí", off: "Movimiento no",
     step: (n) => `Paso ${n} de 3`,
     steps: ["Señales", "Diales", "Coincidencias"],
     pickTitle: "¿Qué se siente como tú?",
@@ -70,6 +73,7 @@ const M = {
     born: "El puntaje es 72% señales compartidas + 28% cercanía de diales, redondeado. Dos personas pueden no estar de acuerdo; por eso mostramos las partes.",
   },
   "zh-Hans": {
+    on: "动效：开", off: "动效：关",
     step: (n) => `第 ${n} 步，共 3 步`,
     steps: ["信号", "旋钮", "匹配"],
     pickTitle: "什么感觉像你？",
@@ -107,6 +111,19 @@ const progress = document.getElementById("progress");
 const openerDialog = document.getElementById("opener-dialog");
 
 const state = { picks: [], tempo: 50, depth: 50, intro: null };
+// The landing page's mixer hands its answers over in the address (?s=…&t=…&d=…): nothing is stored.
+{
+  const q = new URLSearchParams(location.search);
+  const known = new Set(VIBES.map((v) => v.id));
+  state.picks = (q.get("s") ?? "").split(",").filter((id) => known.has(id));
+  for (const [k, key] of [["t", "tempo"], ["d", "depth"]]) {
+    const n = Number(q.get(k));
+    if (q.has(k) && Number.isFinite(n)) state[key] = Math.min(100, Math.max(0, Math.round(n)));
+  }
+}
+const meAura = new Aura(document.getElementById("me-aura"));
+const drawMe = () => meAura.set(state);
+let matchAuras = [];
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 function stepHead(n) {
@@ -135,6 +152,7 @@ function showSignals() {
   const count = document.getElementById("count");
   const next = document.getElementById("next");
   for (const b of board.querySelectorAll(".signal")) {
+    b.style.setProperty("--sig", signalColor(b.dataset.id));
     if (state.picks.includes(b.dataset.id)) b.setAttribute("aria-pressed", "true");
     b.addEventListener("click", () => {
       const id = b.dataset.id;
@@ -144,6 +162,7 @@ function showSignals() {
       count.textContent = t.picked(state.picks.length);
       next.disabled = state.picks.length < 4;
       count.dataset.need = state.picks.length < 4 ? "true" : "false";
+      drawMe();
     });
   }
   next.addEventListener("click", () => {
@@ -179,8 +198,8 @@ function showDials() {
 
   const tempo = document.getElementById("tempo");
   const depth = document.getElementById("depth");
-  tempo.addEventListener("input", () => { state.tempo = Number(tempo.value); });
-  depth.addEventListener("input", () => { state.depth = Number(depth.value); });
+  tempo.addEventListener("input", () => { state.tempo = Number(tempo.value); drawMe(); });
+  depth.addEventListener("input", () => { state.depth = Number(depth.value); drawMe(); });
   document.getElementById("back").addEventListener("click", showSignals);
   document.getElementById("find").addEventListener("click", () => {
     state.tempo = Number(tempo.value);
@@ -201,11 +220,11 @@ function showMatches() {
     <p class="lede">${esc(t.matchLede)}</p>
     <ul class="matches">
       ${ranked.map(({ profile: p, score, shared }) => `<li class="match">
-        <div class="face">${avatarSvg(p, 96)}</div>
+        <div class="face"><canvas width="320" height="320" aria-hidden="true"></canvas><div class="avatar">${avatarSvg(p, 96)}</div></div>
         <div class="body">
           <p class="who"><strong>${esc(p.name)}</strong> <span class="pron">${esc(p.pronouns)}</span> <span class="pill">${esc(t.sample)}</span></p>
           <p class="blurb">${esc(p.blurb[locale])}</p>
-          <p class="shared">${shared.length ? esc(t.shared(shared.length)) + ": " + shared.map((id) => `<span class="chip small">${esc(labelOf(id, locale))}</span>`).join(" ") : esc(t.sharedNone)}</p>
+          <p class="shared">${shared.length ? esc(t.shared(shared.length)) + ": " + shared.map((id) => `<span class="chip small" data-id="${id}">${esc(labelOf(id, locale))}</span>`).join(" ") : esc(t.sharedNone)}</p>
           <p class="why"><span class="score">${esc(t.score(score))}</span> <span class="dials">${esc(t.dials(p.tempo, p.depth))}</span></p>
           <button type="button" class="btn quiet hi" data-id="${p.id}">${esc(t.sayHi)}</button>
         </div>
@@ -218,11 +237,15 @@ function showMatches() {
     </div>
   </section>`;
 
+  matchAuras.forEach((a) => a.dispose());
+  matchAuras = ranked.map(({ profile }, i) => { const a = new Aura(view.querySelectorAll(".match .face canvas")[i]); a.set(profile); return a; });
+  for (const c of view.querySelectorAll(".chip[data-id]")) c.style.setProperty("--sig", signalColor(c.dataset.id));
   document.getElementById("back").addEventListener("click", showDials);
   document.getElementById("again").addEventListener("click", () => {
     state.picks = [];
     state.tempo = 50;
     state.depth = 50;
+    drawMe();
     showSignals();
   });
   for (const b of view.querySelectorAll(".hi")) {
@@ -241,4 +264,6 @@ function showMatches() {
 }
 
 document.getElementById("opener-close").addEventListener("click", () => openerDialog.close());
+drawMe();
 showSignals();
+mountMotion(t);

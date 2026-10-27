@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="VibeMatch">
-  <rect width="64" height="64" rx="16" fill="#7b5cff"/>
-  <path d="M12 40c5-14 9-14 14 0s9 14 14 0" fill="none" stroke="#fff9f4" stroke-width="5" stroke-linecap="round"/>
-  <path d="M24 24c5-14 9-14 14 0s9 14 14 0" fill="none" stroke="#ffb27a" stroke-width="5" stroke-linecap="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><radialGradient id="a"><stop offset="0" stop-color="#ff6f61"/><stop offset="1" stop-color="#ff6f61" stop-opacity="0"/></radialGradient><radialGradient id="b"><stop offset="0" stop-color="#3fe0d0"/><stop offset="1" stop-color="#3fe0d0" stop-opacity="0"/></radialGradient></defs><rect width="64" height="64" fill="#0c0a10"/><circle cx="24" cy="32" r="24" fill="url(#a)"/><circle cx="40" cy="32" r="24" fill="url(#b)"/><circle cx="32" cy="32" r="7" fill="#f6f3f8"/></svg>

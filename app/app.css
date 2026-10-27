@@ -1,60 +1,69 @@
-/* The vibe check: the same cards and signals as the site, at the width of a phone. */
-body.app { background: var(--bg); }
-.app-head .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 20px; padding-top: 16px; padding-bottom: 8px; max-width: 860px; }
-.app-head .progress { color: var(--muted); font-size: 0.9rem; font-weight: 700; }
-.app-head .locale .menu { top: calc(100% + 8px); bottom: auto; }
-.demo-banner { margin: 0; padding: 8px 16px; background: var(--soft); color: var(--text); font-size: 0.92rem; text-align: center; }
-.app-main { max-width: 860px; margin: 0 auto; padding: 8px 20px 64px; }
-.panel { padding-top: 20px; }
-.eyebrow { margin: 18px 0 6px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-.track { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 18px; counter-reset: track; }
-.track li { counter-increment: track; display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; font-weight: 700; }
-.track li + li::before { content: "→"; opacity: 0.5; }
-.track li[aria-current="step"] { color: var(--text); }
-.track li.done { color: var(--mint); }
-.panel h1 { margin: 0 0 8px; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); }
-/* A step's heading takes focus so a screen reader reads the new step; it is not a control, so no ring. */
-.panel h1:focus { outline: none; }
-.lede { margin: 0 0 20px; color: var(--muted); max-width: 40em; }
+/* The vibe check, after hours: one step at a time on the left, your aura forming on the right. On a phone
+   the aura is a band above the step, so every choice still shows its light. */
+body.app { min-height: 100svh; }
+.demo-banner { margin: 0; padding: 9px var(--gutter); background: var(--lime); color: var(--night); font: 600 0.86rem / 1.35 var(--display); letter-spacing: 0.02em; }
+.app-head .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 18px var(--gutter); }
+.app-head .brand { display: block; width: 150px; color: var(--white); }
+.app-head .brand svg { width: 100%; height: auto; }
+.app-head .progress { font: 600 var(--s-1) / 1 var(--display); letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+.app-head .locale .menu { top: calc(100% + 10px); bottom: auto; }
 
-.board { display: grid; gap: 18px; }
-.group { border: 0; margin: 0; padding: 0; }
-.group legend { padding: 0 0 8px; color: var(--muted); font-size: 0.82rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-.group { display: flex; flex-wrap: wrap; gap: 8px; }
-.group legend { flex-basis: 100%; }
-.signal { border: 2px solid var(--line); background: var(--surface); color: var(--text); border-radius: 999px; padding: 9px 16px; font: 600 0.98rem var(--sans); cursor: pointer; }
-.signal:hover { border-color: var(--violet); }
-.signal[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: var(--violet-text); }
-.count { margin: 18px 0 4px; color: var(--muted); font-weight: 700; }
-.count[data-need="true"] { color: var(--text); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.stage { display: grid; grid-template-columns: minmax(0, 1fr); padding: 0 var(--gutter) 80px; gap: 24px 64px; }
+@media (min-width: 960px) { .stage { grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr); } }
+.me-side { position: relative; order: -1; aspect-ratio: 2.4; overflow: hidden; }
+.me-side canvas { position: absolute; left: 50%; top: 50%; width: min(100%, 420px); aspect-ratio: 1; height: auto; translate: -50% -50%; }
+@media (min-width: 960px) { .me-side { order: 0; position: sticky; top: 40px; align-self: start; aspect-ratio: 1; } .me-side canvas { width: 100%; } }
+.me-tag { position: absolute; left: 50%; top: 50%; translate: -50% -50%; margin: 0; padding: 7px 13px; border-radius: 50%; background: var(--white); color: var(--night); font: 800 var(--s-1) / 1 var(--display); letter-spacing: 0.2em; text-transform: uppercase; }
 
-.dial { display: block; margin: 22px 0; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; }
-.dial-name { font-weight: 800; color: var(--ink); }
-.dial input { width: 100%; margin: 10px 0 4px; accent-color: var(--violet); }
-.ends { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; }
+.app-main:focus { outline: none; }
+.panel h1 { font-size: clamp(2.1rem, 1rem + 3.4vw, 3.8rem); line-height: 0.94; letter-spacing: -0.045em; font-weight: 800; text-transform: lowercase; margin: 0 0 14px; }
+.panel h1:focus { outline: none; box-shadow: none; }
+.lede { margin: 0 0 30px; color: var(--dim); max-width: 34em; font-size: 1.08rem; }
 
-.matches { list-style: none; padding: 0; margin: 0 0 20px; display: grid; gap: 14px; }
-.match { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 16px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px; }
-.match .face svg { border-radius: 14px; display: block; width: 96px; height: 96px; }
-.who { margin: 0 0 4px; font-size: 1.1rem; color: var(--ink); }
-.pron { color: var(--muted); font-size: 0.9rem; }
-.pill { display: inline-block; padding: 1px 9px; border-radius: 999px; background: var(--soft); color: var(--muted); font-size: 0.74rem; font-weight: 700; vertical-align: middle; }
-.blurb { margin: 0 0 8px; color: var(--muted); }
-.shared { margin: 0 0 6px; font-size: 0.92rem; color: var(--text); }
-.chip.small { display: inline-block; padding: 1px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); font-size: 0.82rem; }
-.why { margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
-.score { font-weight: 800; color: var(--violet); }
-.dials { color: var(--muted); font-size: 0.86rem; }
-.born { font-size: 0.86rem; max-width: 46em; margin: 0 0 18px; }
+/* The three steps as track numbers on a sleeve. */
+.track { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 0; margin: 0 0 26px; counter-reset: track; }
+.track li { counter-increment: track; display: flex; align-items: baseline; gap: 8px; color: var(--faint); font: 600 var(--s-1) / 1.2 var(--display); letter-spacing: 0.16em; text-transform: uppercase; }
+.track li::before { content: counter(track, decimal-leading-zero); font-weight: 800; }
+.track li[aria-current="step"] { color: var(--white); }
+.track li[aria-current="step"]::before { color: var(--lime); }
+.track li.done { color: var(--dim); text-decoration: line-through; text-decoration-color: var(--coral); }
 
-dialog { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); color: var(--text); padding: 22px; max-width: min(92vw, 460px); }
-dialog::backdrop { background: rgba(16, 8, 34, 0.5); }
-dialog h2 { margin: 0 0 10px; color: var(--ink); font-size: 1.15rem; }
-dialog p { margin: 0 0 12px; }
+.board { display: grid; gap: 28px 32px; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+.group { border: 0; margin: 0; padding: 0; min-width: 0; }
+.group legend { padding: 0 0 8px; font: 600 var(--s-1) / 1.3 var(--display); letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+.count { margin: 26px 0 18px; font: 700 var(--s0) / 1.3 var(--display); color: var(--dim); }
+.count[data-need="true"] { color: var(--coral); }
 
-@media (max-width: 560px) {
-  .app-main { padding: 4px 16px 48px; }
-  .match { grid-template-columns: minmax(0, 1fr); }
-  .match .face svg { width: 72px; height: 72px; }
-}
+.dial { display: grid; gap: 10px; margin: 0 0 34px; max-width: 34em; }
+.dial-name { font: 800 var(--s1) / 1 var(--display); text-transform: lowercase; }
+.dial input { width: 100%; height: 44px; margin: 0; }
+.ends { display: flex; justify-content: space-between; font: 600 0.72rem / 1 var(--display); letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+
+.matches { list-style: none; padding: 0; margin: 0 0 30px; border-top: 1px solid var(--hair); }
+.match { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: 22px; align-items: center; padding: 26px 0; border-bottom: 1px solid var(--hair); }
+.match .face { position: relative; width: 132px; aspect-ratio: 1; }
+.match .face canvas { position: absolute; max-width: none; inset: -30%; width: 160%; height: 160%; }
+.match .avatar { position: absolute; inset: 28%; border-radius: 50%; overflow: hidden; }
+.match .avatar svg { width: 100%; height: 100%; }
+.who { margin: 0 0 6px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.who strong { font: 800 var(--s2) / 1 var(--display); letter-spacing: -0.03em; }
+.pron { color: var(--dim); font-size: 0.92rem; }
+.pill { font: 700 0.68rem / 1 var(--display); letter-spacing: 0.18em; text-transform: uppercase; color: var(--night); background: var(--dim); padding: 5px 9px; border-radius: 50%; }
+.blurb { margin: 0 0 10px; color: var(--dim); max-width: 34em; }
+.shared { margin: 0 0 8px; font-size: 0.95rem; }
+.chip.small { display: inline-flex; align-items: center; gap: 6px; margin-right: 8px; font: 600 0.92rem / 1.4 var(--display); color: var(--sig, var(--white)); text-transform: lowercase; }
+.chip.small::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--sig, var(--white)); }
+.why { margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; }
+.score { font: 800 var(--s1) / 1 var(--display); color: var(--lime); }
+.dials { color: var(--faint); font-size: 0.88rem; }
+.born { font-size: 0.9rem; max-width: 40em; margin: 0 0 24px; color: var(--faint); }
+@media (max-width: 520px) { .match { grid-template-columns: 92px minmax(0, 1fr); gap: 16px; } .match .face { width: 92px; } }
+
+dialog { max-width: min(560px, calc(100vw - 32px)); padding: 34px; border: 1px solid var(--hair); background: var(--night-2); color: var(--white); }
+dialog::backdrop { background: oklch(0.15 0.012 300 / 0.8); }
+dialog h2 { font-size: var(--s2); line-height: 1; letter-spacing: -0.03em; text-transform: lowercase; margin-bottom: 16px; }
+dialog #opener-text { font: 600 var(--s1) / 1.3 var(--display); }
+dialog .muted { color: var(--dim); font-size: 0.92rem; }
+.muted { color: var(--dim); }
+/* The header's live progress says the step; the panel's own line is for the reading order only. */
+.panel > .eyebrow { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }

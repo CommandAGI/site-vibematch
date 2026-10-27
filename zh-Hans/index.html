@@ -3,93 +3,149 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>VibeMatch：凭氛围认识人，而不是凭简介</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>VibeMatch：凭氛围认识人，不凭简介</title>
 <meta name="description" content="VibeMatch 把感觉对味的人介绍给你：十六个信号、两个旋钮、三个介绍，每一个都写明你们共享的氛围。">
+<meta name="theme-color" content="#0c0a10">
+<meta property="og:title" content="VibeMatch：凭氛围认识人，不凭简介">
+<meta property="og:description" content="VibeMatch 把感觉对味的人介绍给你：十六个信号、两个旋钮、三个介绍，每一个都写明你们共享的氛围。">
+<meta property="og:image" content="https://vibematch.commandagi.app/og.png">
+<meta property="og:url" content="https://vibematch.commandagi.app/zh-Hans/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" hreflang="en" href="https://vibematch.commandagi.app/">
 <link rel="alternate" hreflang="es" href="https://vibematch.commandagi.app/es/">
 <link rel="alternate" hreflang="zh-Hans" href="https://vibematch.commandagi.app/zh-Hans/">
 <link rel="alternate" hreflang="x-default" href="https://vibematch.commandagi.app/">
+<link rel="preload" href="../fonts/syne.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="../mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../touch-icon.png">
+<script type="module" src="../home.js"></script>
 </head>
-<body>
+<body class="home">
 <a class="skip" href="#main">跳到正文</a>
 <header class="site-head">
-  <div class="wrap">
-    <a class="brand" href="./"><img src="../mark.svg" alt="" width="34" height="34">vibematch</a>
-    <nav class="site-nav" aria-label="网站">
-      <a href="./" aria-current="page">首页</a>
-      <a href="#how">怎么匹配</a>
-      <a href="app/">氛围测试</a>
-      <a href="about.html">关于</a>
-    </nav>
-  </div>
+  <a class="brand" href="./" aria-label="VibeMatch, 首页"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -900 8407 930" aria-hidden="true" focusable="false">
+<defs><radialGradient id="vm-a"><stop offset="0" stop-color="#ff6f61"/><stop offset="1" stop-color="#ff6f61" stop-opacity="0"/></radialGradient><radialGradient id="vm-b"><stop offset="0" stop-color="#3fe0d0"/><stop offset="1" stop-color="#3fe0d0" stop-opacity="0"/></radialGradient></defs>
+<path id="wm-glyphs" fill="currentColor" d="M510 -90 396 -92 648 -490H913L564 0H338L5 -490H269Z M933 -490H1173V0H933Z M1888 14Q1798 14 1726.0 -4.5Q1654 -23 1603.0 -57.5Q1552 -92 1525.0 -139.5Q1498 -187 1498 -245Q1498 -303 1525.0 -351.0Q1552 -399 1603.0 -433.5Q1654 -468 1726.0 -486.5Q1798 -505 1888 -505Q1996 -505 2080.5 -476.0Q2165 -447 2213.0 -389.0Q2261 -331 2261 -245Q2261 -163 2213.0 -105.0Q2165 -47 2080.5 -16.5Q1996 14 1888 14ZM1798 -138Q1866 -138 1914.0 -150.0Q1962 -162 1987.0 -186.0Q2012 -210 2012 -245Q2012 -299 1956.0 -325.5Q1900 -352 1798 -352Q1722 -352 1658.5 -343.0Q1595 -334 1556.5 -311.0Q1518 -288 1518 -245Q1518 -203 1556.5 -180.0Q1595 -157 1658.5 -147.5Q1722 -138 1798 -138ZM1518 -690V-190Q1518 -126 1513.5 -74.5Q1509 -23 1504 0H1278V-690Z M2979 -176H3215Q3206 -118 3157.5 -75.0Q3109 -32 3016.5 -8.5Q2924 15 2781 15Q2630 15 2520.5 -9.0Q2411 -33 2352.0 -90.0Q2293 -147 2293 -244Q2293 -340 2350.5 -397.5Q2408 -455 2517.0 -480.0Q2626 -505 2781 -505Q2933 -505 3030.0 -478.0Q3127 -451 3173.0 -390.5Q3219 -330 3217 -227H2537Q2542 -201 2565.5 -179.0Q2589 -157 2638.5 -143.5Q2688 -130 2771 -130Q2857 -130 2912.5 -142.0Q2968 -154 2979 -176ZM2771 -360Q2665 -360 2609.5 -337.0Q2554 -314 2544 -291H2984Q2977 -317 2928.0 -338.5Q2879 -360 2771 -360Z M3263 -490H3503V0H3263ZM3863 -505Q3922 -505 3977.0 -492.5Q4032 -480 4075.5 -450.0Q4119 -420 4145.0 -368.0Q4171 -316 4171 -237V0H3931V-207Q3931 -282 3892.0 -313.5Q3853 -345 3751 -345Q3697 -345 3646.5 -333.0Q3596 -321 3556.0 -304.5Q3516 -288 3493 -272L3491 -310Q3495 -328 3518.5 -360.5Q3542 -393 3587.0 -426.0Q3632 -459 3700.5 -482.0Q3769 -505 3863 -505ZM4519 -505Q4578 -505 4633.0 -492.5Q4688 -480 4731.5 -450.0Q4775 -420 4801.0 -368.0Q4827 -316 4827 -237V0H4587V-207Q4587 -282 4548.0 -313.5Q4509 -345 4407 -345Q4353 -345 4302.5 -333.0Q4252 -321 4212.0 -304.5Q4172 -288 4149 -272L4147 -320Q4151 -335 4177.0 -365.0Q4203 -395 4250.5 -427.0Q4298 -459 4365.5 -482.0Q4433 -505 4519 -505Z M5228 14Q5120 14 5036.0 -16.5Q4952 -47 4903.5 -105.0Q4855 -163 4855 -245Q4855 -331 4903.5 -389.0Q4952 -447 5036.0 -476.0Q5120 -505 5228 -505Q5348 -505 5435.5 -472.5Q5523 -440 5570.5 -381.5Q5618 -323 5618 -245Q5618 -187 5591.0 -139.5Q5564 -92 5513.0 -57.5Q5462 -23 5390.0 -4.5Q5318 14 5228 14ZM5318 -138Q5394 -138 5457.5 -147.5Q5521 -157 5559.5 -180.0Q5598 -203 5598 -245Q5598 -288 5559.5 -311.0Q5521 -334 5457.5 -343.0Q5394 -352 5318 -352Q5216 -352 5160.0 -325.5Q5104 -299 5104 -245Q5104 -210 5129.0 -186.0Q5154 -162 5202.0 -150.0Q5250 -138 5318 -138ZM5598 -490H5838V0H5612Q5612 0 5608.5 -23.0Q5605 -46 5601.5 -89.0Q5598 -132 5598 -190Z M5863 -490H6451V-340H5863ZM6037 -640H6277V0H6037Z M7400 -213Q7400 -141 7355.0 -90.0Q7310 -39 7213.0 -12.0Q7116 15 6961 15Q6806 15 6697.5 -10.0Q6589 -35 6532.5 -92.0Q6476 -149 6476 -244Q6476 -339 6532.5 -396.5Q6589 -454 6697.5 -479.5Q6806 -505 6961 -505Q7116 -505 7212.0 -478.0Q7308 -451 7353.0 -400.0Q7398 -349 7399 -278H7179Q7163 -317 7107.0 -338.5Q7051 -360 6961 -360Q6888 -360 6834.0 -349.5Q6780 -339 6750.5 -314.0Q6721 -289 6721 -244Q6721 -200 6750.0 -175.0Q6779 -150 6833.0 -140.0Q6887 -130 6961 -130Q7051 -130 7107.5 -151.5Q7164 -173 7180 -213Z M8122 0V-182Q8122 -227 8104.0 -258.0Q8086 -289 8040.5 -304.5Q7995 -320 7912 -320Q7865 -320 7820.5 -311.5Q7776 -303 7740.5 -291.0Q7705 -279 7684 -267L7682 -315Q7686 -330 7709.5 -360.5Q7733 -391 7778.0 -424.5Q7823 -458 7891.5 -481.5Q7960 -505 8054 -505Q8113 -505 8168.0 -494.0Q8223 -483 8266.5 -457.5Q8310 -432 8336.0 -389.0Q8362 -346 8362 -282V0ZM7454 0V-690H7694V0Z"/>
+<circle cx="975" cy="-650" r="240" fill="url(#vm-a)"/><circle cx="1131" cy="-650" r="240" fill="url(#vm-b)"/><circle cx="1053" cy="-650" r="62" fill="currentColor"/>
+</svg></a>
+  <button class="menu-btn" type="button" popovertarget="site-nav">菜单</button>
+  <nav class="site-nav" id="site-nav" popover aria-label="网站">
+    <a href="./" aria-current="page">首页</a>
+    <a href="#how">怎么匹配</a>
+    <a href="app/">氛围测试</a>
+    <a href="about.html">关于</a>
+    <button class="btn quiet close" type="button" popovertarget="site-nav" popovertargetaction="hide">关闭</button>
+  </nav>
 </header>
 
-<main id="main" class="wrap">
-  <section class="hero">
-    <div>
-      <h1>你不需要一份简介。你需要一种氛围。</h1>
-      <p>VibeMatch 把感觉对味的人介绍给你。十六个描述你在世界上如何移动的小信号、两个旋钮、三个介绍：
-        每一个都写明你们共享的氛围，以及我们为什么想到你。</p>
+<main id="main">
+  <section class="film hero" aria-labelledby="hero-title">
+    <video class="loop" muted loop playsinline preload="auto" poster="../media/auras.jpg" aria-hidden="true" tabindex="-1">
+      <source src="../media/auras.av1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+      <source src="../media/auras.h264.mp4" type="video/mp4">
+    </video>
+    <h1 id="hero-title"><span class="h1-small">你不需要一份<s>简介</s>。</span> <span class="h1-big">你需要一种氛围。</span></h1>
+    <ul class="bill"><li>十六个信号</li><li>两个旋钮</li><li>三个介绍</li><li>免费抢先体验</li></ul>
+    <div class="hero-foot">
       <div class="btns">
         <a class="btn primary" href="app/">做氛围测试</a>
-        <a class="btn" href="#how">怎么匹配</a>
+        <a class="btn" href="#aura">先做一个光晕</a>
       </div>
-      <p class="notice"><strong>抢先体验，免费。</strong>测试运行在八个虚构的样例档案上，只在你自己的浏览器里。
-        你选择的内容不会离开这个页面。</p>
+      <p class="notice"><strong>演示，只在你的浏览器里。</strong>用的是八个虚构的样例档案。你选的东西不会离开这个页面。</p>
     </div>
-    <div class="hero-art" aria-hidden="true">
-      <svg viewBox="0 0 360 300" width="360" height="300" xmlns="http://www.w3.org/2000/svg">
-        <rect width="360" height="300" rx="28" fill="#f3ebff"/>
-        <circle cx="128" cy="150" r="64" fill="#7b5cff" opacity="0.85"/>
-        <circle cx="228" cy="150" r="64" fill="#ff9b5c" opacity="0.85"/>
-        <path d="M150 150c9-26 16-26 25 0s16 26 25 0" fill="none" stroke="#fff9f4" stroke-width="7" stroke-linecap="round"/>
-        <text x="180" y="252" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" fill="#625a78">两种氛围，一处相交</text>
-      </svg>
+    <p class="caption">生成的影像，不是实拍</p>
+  </section>
+
+  <section class="section" id="aura" aria-labelledby="aura-title">
+    <div class="sec-head rise">
+      <p class="eyebrow"><b>01</b> 做一个光晕</p>
+      <h2 id="aura-title">挑出像你的东西，看它发光。</h2>
+      <p>每个信号是一束光。你的光晕在中间成形；氛围押韵的样例人物会慢慢靠近。</p>
+    </div>
+    <div class="mixer" data-you="你">
+      <div class="setlist" id="setlist"><noscript><p>光晕需要 JavaScript。氛围测试也需要：它在这个页面里运行，不连接任何地方。</p></noscript></div>
+      <div class="field-wrap">
+        <div class="field" id="field">
+          <canvas class="me" id="me" width="600" height="600" aria-hidden="true"></canvas>
+          <p class="me-label" aria-hidden="true">你</p>
+        </div>
+        <p class="readout" id="readout" aria-live="polite"></p>
+        <p class="legend">八个虚构的样例人物，在你的浏览器里画出来。光晕是你的答案的样子，不是对你的测量。</p>
+      </div>
+      <div>
+        <div class="faders">
+          <label class="fader"><span class="label">节奏</span>
+            <span class="fader-row"><span class="ends ends-low">慢</span><input type="range" id="tempo" min="0" max="100" step="1" value="50"><span class="ends ends-high">快</span></span>
+          </label>
+          <label class="fader"><span class="label">深度</span>
+            <span class="fader-row"><span class="ends ends-low">轻松</span><input type="range" id="depth" min="0" max="100" step="1" value="50"><span class="ends ends-high">深入</span></span>
+          </label>
+        </div>
+        <p class="to-app"><a class="btn primary" id="to-app" href="app/">做氛围测试</a></p>
+      </div>
     </div>
   </section>
 
-  <section class="section" aria-labelledby="how">
-    <h2 id="how">怎么匹配</h2>
-    <ol class="steps">
-      <li><strong>挑你的信号。</strong>十六个词分四组：节奏、品味、人、状态。挑四个或更多像你的。</li>
-      <li><strong>调两个旋钮。</strong>你的日子跑得多快，你多喜欢深聊。没有小作文题。</li>
-      <li><strong>认识三个人。</strong>每个介绍都写明你们共享的信号，以及旋钮有多接近。喜欢谁，我们替你说一声。</li>
+  <section class="film how" id="how" aria-labelledby="how-title">
+    <video class="loop" muted loop playsinline preload="none" poster="../media/record.jpg" aria-hidden="true" tabindex="-1">
+      <source src="../media/record.av1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+      <source src="../media/record.h264.mp4" type="video/mp4">
+    </video>
+    <h2 id="how-title" class="rise">怎么匹配</h2>
+    <ol class="lineup">
+      <li class="rise"><strong>挑你的信号。</strong><span>十六个词分四组。挑四个或更多。</span></li>
+      <li class="rise"><strong>调两个旋钮。</strong><span>你的日子跑得多快，你多喜欢深聊。</span></li>
+      <li class="rise"><strong>认识三个人。</strong><span>每个介绍都写明你们共享的信号。喜欢谁，我们替你说一声。</span></li>
     </ol>
-    <div class="board" aria-label="十六个信号">
-      <span class="chip">慢星期天</span><span class="chip">城市节奏</span><span class="chip">舞池</span><span class="chip">深夜开车</span>
-      <span class="chip">二手店</span><span class="chip">设计展厅</span><span class="chip">唱片箱</span><span class="chip">书店</span>
-      <span class="chip">小圈子</span><span class="chip">大圆桌</span><span class="chip">一对一</span><span class="chip">人群能量</span>
-      <span class="chip">动手做</span><span class="chip">聊想法</span><span class="chip">出门去</span><span class="chip">待在家</span>
-    </div>
+    <p class="caption">生成的影像，不是实拍</p>
   </section>
 
-  <section class="section" aria-labelledby="what">
-    <h2 id="what">我们不要的东西</h2>
-    <div class="cards">
-      <div class="card"><h3>没有划卡</h3><p>没有什么要划掉。我们给你三个人和每人的理由，见谁由你决定。</p></div>
-      <div class="card"><h3>不用照片</h3><p>氛围是词，不是自拍。今天的档案用代码画出来；开放时，你的可以用一张照片或一幅画。</p></div>
-      <div class="card"><h3>什么也不卖</h3><p>没有加速、没有连续打卡、没有倒计时、没有「看看谁喜欢你」。免费的东西就是全部。</p></div>
-      <div class="card"><h3>明说</h3><p>VibeMatch 由 AI 智能体运营，而且写在站上。它们从不假装是会员，也不用人的身份给你写信。</p></div>
+  <section class="section" id="what" aria-labelledby="what-title">
+    <div class="sec-head rise">
+      <p class="eyebrow"><b>02</b> 门口的规矩</p>
+      <h2 id="what-title">我们不要的东西</h2>
     </div>
+    <ul class="door">
+      <li class="struck"><span class="word"><span class="sr">✕ </span>划卡</span><p class="note">三个人，每人一个理由。见谁由你决定。</p></li>
+      <li class="struck"><span class="word"><span class="sr">✕ </span>必须上传照片</span><p class="note">氛围是词。今天的档案用代码画出来。</p></li>
+      <li class="struck"><span class="word"><span class="sr">✕ </span>任何付费项目</span><p class="note">没有加速、连续打卡、倒计时，也没有「看看谁喜欢你」。</p></li>
+      <li class="lit"><span class="word">明说</span><p class="note">VibeMatch 由 AI 智能体运营，而且写在站上。它们从不假装是会员，也不用人的身份给你写信。</p></li>
+    </ul>
   </section>
 
-  <section class="section" aria-labelledby="early">
-    <h2 id="early">抢先体验</h2>
-    <p>我们一个城市一个城市地开小圈子。写信给
-      <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a>，说说最像你的三个信号；
-      附近有圈子开的时候，我们回信给你。</p>
+  <section class="section" id="score" aria-labelledby="score-title">
+    <div class="sec-head">
+      <p class="eyebrow"><b>03</b> 分数，连同算法</p>
+      <h2 id="score-title" class="sr">分数</h2>
+    </div>
+    <p class="sum">
+      <span class="part"><span class="num">72</span><span class="label">% 共享信号</span></span>
+      <span class="op" aria-hidden="true">+</span>
+      <span class="part"><span class="num">28</span><span class="label">% 旋钮贴近度</span></span>
+    </p>
+    <div class="verdict rise"><p><b>一次读数，不是判决。</b>61 分的两个人，第一晚可能比 84 分的两个人过得更好。</p><p>两部分都写出来，你可以不同意。<a href="about.html#score">完整的打分方法</a>。</p></div>
+  </section>
+
+  <section class="film early" id="early" aria-labelledby="early-title">
+    <video class="loop" muted loop playsinline preload="none" poster="../media/rain.jpg" aria-hidden="true" tabindex="-1">
+      <source src="../media/rain.av1.mp4" type="video/mp4; codecs=av01.0.05M.08">
+      <source src="../media/rain.h264.mp4" type="video/mp4">
+    </video>
+    <h2 id="early-title" class="rise">抢先体验</h2>
+    <p class="rise">我们一个城市一个城市地开小圈子，免费。写信给 <a class="mail" href="mailto:hello@vibematch.dev">hello@vibematch.dev</a>，说说最像你的三个信号；附近有圈子开的时候，我们回信给你。</p>
+    <a class="btn primary" href="mailto:hello@vibematch.dev">写信给我们</a>
+    <p class="caption">生成的影像，不是实拍</p>
   </section>
 </main>
 
 <footer class="site-foot">
-  <div class="wrap">
-    <span>VibeMatch，CommandAGI 旗下公司 &middot; <a href="about.html">关于</a> &middot;
-      <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a></span>
+  <div class="big" aria-hidden="true"><svg viewBox="0 -900 8407 930"><use href="#wm-glyphs"/></svg></div>
+  <div class="row">
+    <div><p>VibeMatch，CommandAGI 旗下公司 &middot; <a href="about.html">关于</a> &middot; <a href="mailto:hello@vibematch.dev">hello@vibematch.dev</a></p><p>由 AI 智能体运营，我们明说。动态影像是生成的；人物是样例。</p></div>
     <details class="locale">
-      <summary aria-label="语言">A/文 <span lang="zh-Hans">中文</span></summary>
+      <summary aria-label="语言">A/文 <span lang="zh-Hans">中文（简体）</span></summary>
       <nav class="menu" aria-label="语言">
         <a href="../" lang="en">English</a>
         <a href="../es/" lang="es">Español</a>

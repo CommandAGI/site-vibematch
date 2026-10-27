@@ -2,7 +2,7 @@
 // Run: node --test tests/site.test.mjs
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { VIBES, GROUPS } from "../app/vibes.js";
@@ -60,9 +60,9 @@ test("every relative link and image resolves to a file", () => {
     for (const page of PAGES) {
       const rel = join(prefix, page);
       const html = read(rel);
-      for (const [, url] of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+      for (const [, url] of html.matchAll(/(?:href|src|poster)="([^"]+)"/g)) {
         if (/^(?:https?:|mailto:|#)/.test(url)) continue;
-        const target = resolve(dirname(join(root, rel)), url);
+        const target = resolve(dirname(join(root, rel)), url.replace(/[?#].*$/, ""));
         const exists = existsSync(target) || existsSync(join(target, "index.html"));
         assert.ok(exists, `${rel}: ${url} resolves`);
       }
@@ -107,4 +107,17 @@ test("the score is 72% shared signals + 28% dial closeness, as the about page sa
   assert.deepEqual(got.shared.sort(), ["slow-sunday", "talk-ideas"]);
   assert.equal(got.overlap, 0.25);
   assert.equal(got.score, 40);
+});
+
+test("every loop is muted, has a poster and an H.264 fallback, and stays under 3 MB", () => {
+  const html = read("index.html");
+  const videos = [...html.matchAll(/<video([^>]*)>([\s\S]*?)<\/video>/g)];
+  assert.ok(videos.length >= 3, "the landing page has its loops");
+  for (const [, attrs, inner] of videos) {
+    assert.match(attrs, /\bmuted\b/);
+    assert.match(attrs, /poster="/);
+    assert.doesNotMatch(attrs, /\bautoplay\b/, "a loop starts from the page's motion rule, never on its own");
+    assert.match(inner, /h264\.mp4/);
+    for (const [, src] of inner.matchAll(/src="([^"]+)"/g)) assert.ok(statSync(join(root, src)).size < 3e6, `${src} is under 3 MB`);
+  }
 });

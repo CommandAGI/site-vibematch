@@ -139,6 +139,27 @@ try {
   check((await page.eval("document.querySelector('h1').textContent")).includes("vibe"), "the landing page has its headline");
   await page.shot("01-landing.png");
 
+  // 1b. The aura mixer: four signals light the aura, the sample people who share them drift in, the readout
+  // names who and why, and the button carries the answers into the vibe check.
+  await waitFor(page, 'document.querySelectorAll("#setlist .signal").length === 16 && document.querySelectorAll("#field .sample").length === 8');
+  const radius = `[...document.querySelectorAll("#field .sample")].map(b => Math.hypot(parseFloat(b.style.getPropertyValue("--x")), parseFloat(b.style.getPropertyValue("--y"))))`;
+  const before = await page.eval(radius);
+  for (const id of ["slow-sunday", "bookshop", "one-to-one", "talk-ideas"])
+    await page.click(`document.querySelector('#setlist .signal[data-id="${id}"]')`);
+  const after = await page.eval(radius);
+  check(after.some((r, i) => r < before[i] - 1), `a sample drifted closer: ${before} → ${after}`);
+  const said = await page.eval('document.getElementById("readout").textContent');
+  check(/Noor/.test(said) && /bookshop|talk ideas|one to one|slow sunday/.test(said), `the readout names the closest sample and a shared signal: ${said}`);
+  const handOff = await page.eval('document.getElementById("to-app").getAttribute("href")');
+  check(handOff.includes("slow-sunday") && handOff.includes("bookshop"), `the mixer hands its answers to the vibe check: ${handOff}`);
+  await page.eval('document.getElementById("aura").scrollIntoView()');
+  await sleep(400);
+  await page.shot("01b-aura.png");
+  await page.click('document.getElementById("to-app")');
+  await waitFor(page, 'document.querySelectorAll(\'.signal[aria-pressed="true"]\').length === 4');
+  check(!(await page.eval('document.getElementById("next").disabled')), "four handed-over signals open the next step");
+  await page.goto(url);
+
   // 2. The main flow: the vibe check, through the visible controls.
   await page.click("[...document.querySelectorAll('a')].find(a => a.textContent.includes('vibe check'))");
   await signalsUp(page, "main flow");
@@ -197,7 +218,9 @@ try {
   console.log(`screenshots: ${out}`);
 } finally {
   page.close();
+  const gone = new Promise((r) => child.once("exit", r));
   child.kill("SIGTERM");
+  await Promise.race([gone, sleep(5000)]);
   if (server) server.close();
-  await rm(profile, { recursive: true, force: true });
+  await rm(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 200 });
 }
