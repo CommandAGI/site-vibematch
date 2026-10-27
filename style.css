@@ -192,7 +192,7 @@ main { padding-right: var(--rail); }
 
 .field-wrap { min-width: 0; }
 .field {
-  position: relative; aspect-ratio: 1; width: min(100%, 78vh); margin: 0 auto; border-radius: 50%;
+  position: relative; aspect-ratio: 1; width: min(100%, 78vh, 900px); margin: 0 auto; border-radius: 50%;
   /* The grooves of a record seen from above: inner rings are close vibes, the rim is far. */
   background: repeating-radial-gradient(circle, transparent 0 calc(9.5% - 1px), var(--hair) calc(9.5% - 1px) 9.5%);
 }

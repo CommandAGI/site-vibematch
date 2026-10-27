@@ -35,3 +35,14 @@ Re-make: `COMMANDAGI_ENV_ROOT=… node redesign/media.mjs generate` (costs money
 | craft | 7 | the 768 mixer leaves space beside the faders; the about page's outline numerals are thin at 390 |
 
 Average 8.0, nothing below 7.
+
+## performance (live, 2026-10-27; Chromium, slow 4G: 150 ms RTT, 1.6 Mbps down, CPU ×4, cache off)
+
+| page | LCP | CLS | JS transferred |
+|---|---|---|---|
+| `/` at 390 | 1.83 s | 0.012 | 12.7 KB |
+| `/` at 1440 | 1.72 s | 0.074 | 12.7 KB |
+| `/app/` at 390 | 2.32 s | 0.012 | 16.3 KB |
+
+The app's CLS was 0.16 before the app and about pages preloaded Syne. INP proxy (Event Timing, five signal and
+sample taps and a fader key at CPU ×4): every interaction 24–32 ms. 2560 px: the record field is capped at 900 px.
